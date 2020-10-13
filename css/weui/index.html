@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEUI</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        /* 元素属性 css 面向对象的继承是一直存在的 inherit
+           从父元素继承，从基础类继承 */
+        a {
+            text-decoration: none;
+            /* 手机上特有的特效 webkit goole 实验阶段*/
+            /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */
+        }
+         /* 基类 */
+        .weui-btn {
+            position: relative;
+            /* 接受我，块级元素 切换 */
+            display: block;
+            width: 184px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 8px 24px;
+            box-sizing: border-box;
+            font-weight: 700;
+            text-align: center;
+            font-size: 17px;
+            text-decoration: none;
+            color: #fff;
+            line-height: 1.41176471; 
+            border-radius: 4px;
+        }
+        .weui-btn_primary {
+            background-color: #07c160;
+        }
+        /* modifier */
+        .weui-btn_loading.weui-btn_primary {
+            background-color: #06ae56;
+            color: #fff;
+        }
+        .weui-btn_large {
+
+        }
+        .weui-btn_loading .weui-loading {
+            margin: -0.2em 0.34em 0 0;
+        }
+        
+        .weui-loading {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            vertical-align: middle;
+            animation: weuiLoading 1s steps(12,end) infinite;
+            background-image: url(./img/Loading.png);
+            background-size: 100%;
+        }
+        @keyframes weuiLoading {
+            0% {
+                transform: rotate3d(0, 0, 1, 0deg);
+            }   
+            100% {
+                transform: rotate3d(0, 0, 1, 360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 类名很重要
+    BEM 国际命名规范   积木  搭起来的
+    .button
+    .btn
+    命名空间    tm-btn  tb-btn  Block
+    按钮的什么？ 状态
+    Block 
+    Modifier  _
+    -->
+    <a href="javascript:;" class="weui-btn weui-btn_primary">页面主操作</a>
+    <a href="javascript:;" class="weui-btn weui-btn_primary weui-btn_loading"><i class="weui-loading"></i>页面主操作</a>
+    <div class="weui-cells__group weui-cells__group_form"></div>
+        <!-- 两个下划线表示Element  -->
+        <!-- Element BEM 
+        .vs-lcon.vs-icon_avatar
+        
+        -->
+        <div class="weui-cells__title">
+            <div class="weui-cell">
+                <div class="weui-cell_hd"></div>
+                <div class="weui-cell__bd"></div>
+            </div>
+        </div>
+</body>
+</html>
