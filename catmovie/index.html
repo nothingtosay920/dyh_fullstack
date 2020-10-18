@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.bootcdn.net/ajax/libs/weui/2.3.0/style/weui.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_2127651_6do3taqu3ns.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class="movie">
+    <div class="movie-head">
+      <i class="iconfont icon-fanhui"></i>
+      <span class="title">影片详情</span>
+    </div>
+    <div class="movie-info">
+      <div class="movie-info__desc">
+        <div class="info-pic">
+          <img src="https://p0.meituan.net/movie/202ea88abd2abf2aa1964487d61edab64556414.jpg@300w_414h" alt="">
+        </div>
+        <div class="info-container">
+          <h2 class="name">我和我的家乡</h2>
+          <p class="type">剧情,喜剧 <span></span></p>
+          <p class="timer">中国大陆 / 153分钟</p>
+          <p class="play-time">2020-10-01 08:00 中国大陆上映</p>
+          <div class="btn-wrap">
+            <div class="flex" id="watch">
+              <i class="iconfont icon-HEART"></i>
+              想看
+            </div>
+            <div class="flex">
+              <i class="iconfont icon-star"></i>
+              看过
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="movie-info__rate">
+        <div class="rate-title">
+          <div class="rate-title__left">
+            <i class="iconfont icon-maoyan1"></i>
+            猫眼购票评分
+          </div>
+          <div class="rate-title__right">
+            <span class="want">312414</span>人想看
+            <span class="watched">32131</span>看过
+            <i class="iconfont icon-arrow-right"></i>
+          </div>
+        </div>
+        <div class="rate-detail">
+          <div class="rate-detail__left">
+            <div class="grade">
+              <h2>9.3</h2>
+              <p><span>654654</span>人评</p>
+            </div>
+            <div class="star">
+              <ul>
+                <li class="list">
+                  <p class="star-num">
+                    <img src="./img/star.png" alt="">
+                    <img src="./img/star.png" alt="">
+                    <img src="./img/star.png" alt="">
+                    <img src="./img/star.png" alt="">
+                    <img src="./img/star.png" alt="">
+                  </p>
+                  <p class="persent">
+                    <span class="persent-val"></span>
+                  </p>
+                </li>
+                <li class="list">
+                  <p class="star-num">
+                    <img src="./img/star.png" alt="">
+                    <img src="./img/star.png" alt="">
+                    <img src="./img/star.png" alt="">
+                    <img src="./img/star.png" alt="">
+                  </p>
+                  <p class="persent">
+                    <span class="persent-val"></span>
+                  </p>
+                </li>
+                <li class="list">
+                  <p class="star-num">
+                    <img src="./img/star.png" alt="">
+                    <img src="./img/star.png" alt="">
+                    <img src="./img/star.png" alt="">
+                  </p>
+                  <p class="persent">
+                    <span class="persent-val"></span>
+                  </p>
+                </li>
+                <li class="list">
+                  <p class="star-num">
+                    <img src="./img/star.png" alt="">
+                    <img src="./img/star.png" alt="">
+                  </p>
+                  <p class="persent">
+                    <span class="persent-val"></span>
+                  </p>
+                </li>
+                <li class="list">
+                  <p class="star-num">
+                    <img src="./img/star.png" alt="">
+                  </p>
+                  <p class="persent">
+                    <span class="persent-val"></span>
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="rate-detail__right">
+            <img src="./img/rank.jpg" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="movie-desc">
+      <p class="content line-clamp">
+        电影《我和我的家乡》定档2020年国庆，延续《我和我的祖国》集体创作的方式，
+        由张艺谋担当总监制，宁浩担任总导演，张一白担任总策划，宁浩、徐峥、陈思诚、
+        闫非&amp;彭大魔、邓超&amp;俞白眉分别执导五个故事。
+      </p>
+      <p class="arrow">
+        <i class="iconfont icon-arrow-bottom"></i>
+      </p>
+    </div>
+    <!-- toast -->
+    <div id="toast">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-toast">
+          <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+          <p class="weui-toast__content">已标注为想看</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var watchBtn = document.getElementById('watch')
+    var toast = document.getElementById('toast')
+    var heart = document.querySelector('.icon-HEART')
+    var toastContent = document.querySelector('.weui-toast__content')
+    var flag = false
+
+    watchBtn.addEventListener('click', function() {
+      toast.style.display = 'block'
+      if (!flag) {
+        heart.style.color = 'red'
+        toastContent.innerHTML = '已标注为想看'
+      } else {
+        heart.style.color = '#fff'
+        toastContent.innerHTML = '已取消想看'
+      }
+      flag = !flag
+      setTimeout(function() {
+        toast.style.display = 'none'
+      }, 2000)
+    })
+  
+    // 简介
+    var content = document.querySelector('.movie-desc')
+    content.addEventListener('click', function() {
+      if (content.querySelector('.content').classList.contains('line-clamp')) {
+        content.querySelector('.content').classList.remove('line-clamp')
+        content.querySelector('.iconfont').classList.add('up')
+      } else {
+        content.querySelector('.content').classList.add('line-clamp')
+        content.querySelector('.iconfont').classList.remove('up')
+      }
+    })
+  </script>
+</body>
+</html>
