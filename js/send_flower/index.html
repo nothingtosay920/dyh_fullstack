@@ -11,9 +11,13 @@
         //描述性很强的语言
         //对象字面量
         class Flower {
-
+            constructor(flowerType,flowerNum){
+                this.flowerType = flowerType
+                this.flowerNum = flowerNum  
+             }
         }
         const lyb =  {
+            name : '刘杨宝',
             sex: "男",/* 属性 字符串常量*/
             isSingle : true,
             hometown : "赣州",
@@ -22,19 +26,19 @@
             girl : null,/*为空*/
             hobbies : ['游戏','代码'],
             /* 方法 */
-            sendFlower : function(receiver) { // 功能
+            sendFlower : function() { // 功能
                 // 送花的对象
                 // 花的实例
                 let flower = new Flower("红玫瑰",11);
                 //把花送给他
                 //talk in js
-                receiver.recevieFlower(lyb,flower);
+                xh.recevieFlower(lyb,flower);
             }
         }
         const xm = {
             name: "小美",
-            recevieFlower: function() {
-                console.log('xm收到了花')
+            recevieFlower: function(sender,flower) {
+                console.log(this.name+'收到了'+sender.name+'送的'+flower.flowerNum+'朵'+flower.flowerType)
             }
         }
         
@@ -43,10 +47,10 @@
             //代理模式
             hometown: '赣州',
             //接口
-            recevieFlower: function(sender,Flower){
+            recevieFlower: function(sender,flower){
                 if (sender.name == '刘杨宝') {
                     //console.log('男神,还是让我们在一起吧!');
-                    console.log('小红, 请帮我转送给:')
+                    console.log('小红, 请帮我转送给:小美')
                     xm.recevieFlower(sender, flower);
                 } else{
                     console.log('xh收到了花');

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://weui.io/style/weui.css">
+</head>
+<body>
+    <div class="weui-cells">
+        <!-- <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>cell standard</p>
+            </div>
+            <div class="weui-cell__ft">
+            </div>
+        </a>
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>cell standard</p>
+            </div>
+            <div class="weui-cell__ft">
+            </div>
+        </a> -->
+    </div>
+    <script>
+        let ss = {
+            name : '施诗',
+            hometown : '抚州',
+            isSingle : false
+        }
+        let tlc = {
+            name : '陶儒铖',
+            hometown : '南昌'
+        }
+        let students = [ss, tlc];
+        let container = document.querySelector('.weui-cells')
+        // students.forEach
+        // es6
+        // 创建一个构造函数
+        function student(name, hometown) {
+            this.name = name,
+            this.hometown = hometown
+        }
+        // 构造一位学生
+        let dyh = new student('董宜豪', '九江')
+        // 将学生放进数组中
+        students.push(dyh)
+        for (let student of students) {
+        container.innerHTML += `
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>${student.name} </p>
+            </div>
+            <div class="weui-cell__ft">
+                ${student.hometown}
+            </div>
+        </a>
+        `
+        }
+    </script>
+</body>
+</html>
