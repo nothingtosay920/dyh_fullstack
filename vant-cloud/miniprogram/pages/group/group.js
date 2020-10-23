@@ -26,7 +26,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const self = this
+    wx.wx.showNavigationBarLoading();
+    wx.cloud.callFunction({
+      name: 'getgroup',
+      data: {},
+      success(res) {
+        console.log(res);
+        // ...
+      },
+      fail(err) {
+        console.log(err);
+      },
+      complete() {
+        wx.wx.hideNavigationBarLoading();
+      }
+    })
   },
 
   /**
