@@ -1,6 +1,5 @@
-// miniprogram/pages/index/index.js
+// pages/index/index.js
 import Notify from '../../miniprogram_npm/@vant/weapp/notify/notify';
-
 Page({
 
   /**
@@ -22,53 +21,57 @@ Page({
       newGroupModal: false
     })
   },
+
   createGroup() {
-    // 把groupName存到数据库中(传给后端)
     const self = this
-    if (self.data.groupName === '') {
+    if(self.data.groupName === ''){
       Notify({
-        message: '不能为空',
+        message: '起个名字吧',
         duration: 1500,
-        selector: '#notify-selector',
+        selector: '#group-dialog-body',
         background: '#dc3545'
       });
       self.setData({
         newGroupModal: true
       })
-      return 
+      return
     }
+    // 把groupName传入后端
+    
     wx.cloud.callFunction({
       name: 'createGroup',
       data: {
         groupName: self.data.groupName
       },
       success(res) {
-        // console.log(res);
         self.setData({
           groupName: ''
         })
         Notify({
           message: '新建成功',
           duration: 1500,
-          selector: '#notify-selector',
+          selector: '#group-dialog-body',
           background: '#28a745'
         });
-        setTimeout(() =>{
+        setTimeout(() => {
           wx.switchTab({
             url: '/pages/group/group'
           })
-        }, 1500)
+        },1500)
       },
-      fail(err) {
+      fail(err){
         console.log('错误', err);
       }
     })
   },
+
   onGroupNameChange(event) {
     this.setData({
       groupName: event.detail
     })
   },
+
+
 
   /**
    * 生命周期函数--监听页面加载

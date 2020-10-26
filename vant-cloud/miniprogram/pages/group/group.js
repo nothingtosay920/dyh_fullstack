@@ -1,13 +1,14 @@
-// miniprogram/pages/group/group.js
+// pages/group/group.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    group: [],
+    groupName: ''
   },
-
+  
   /**
    * 生命周期函数--监听页面加载
    */
@@ -27,19 +28,21 @@ Page({
    */
   onShow: function () {
     const self = this
-    wx.wx.showNavigationBarLoading();
+    wx.showNavigationBarLoading()
     wx.cloud.callFunction({
-      name: 'getgroup',
+      name: 'getGroup',
       data: {},
-      success(res) {
-        console.log(res);
-        // ...
+      success(res){
+        console.log(res.data)
+        // self.setData({
+        //   // groupName: res.data._id
+        // })
       },
-      fail(err) {
+      fail(err){
         console.log(err);
       },
-      complete() {
-        wx.wx.hideNavigationBarLoading();
+      completed(){
+        wx.hideNavigationBarLoading()
       }
     })
   },
