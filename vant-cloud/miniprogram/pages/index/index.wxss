@@ -1,6 +1,6 @@
 /* miniprogram/pages/index/index.wxss */
 .new-item{
-  width: 600rpx;
+  width: 80%;
   background-color: #fff;
   border-radius: 38rpx;
   height: 200rpx;
@@ -30,8 +30,4 @@
 }
 .new-item:hover{
   box-shadow: none;
-}
-
-#group-dialog-body{
-  z-index: 1;
 }
