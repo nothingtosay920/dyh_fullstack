@@ -1,0 +1,42 @@
+/* pages/home/home.wxss */
+.weui-search-bar{
+    background-color: #42BD55;
+}
+.row {
+    margin-bottom: 30rpx;
+}
+.title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 30rpx;
+    align-items: center;
+    margin-bottom: 30rpx;
+}
+.title {
+    font-weight: bold;
+    font-size: 34rpx;
+}
+.title-right {
+    display: flex;
+    align-items: center;
+    margin-right: 30rpx;
+}
+.title-right .more {
+    font-size: 30rpx;
+    color: #42bd55;
+}
+.title-right .arrow {
+    width: 12rpx;
+    height: 12rpx;
+    border: 1rpx #42bd55 solid;
+    border-bottom: none;
+    border-left: none;
+    transform: rotateZ(45deg);
+}
+.scoll-view__movie {
+    height: 402rpx;
+    white-space: nowrap;
+}
+.scoll-view__movie .item {
+    margin-left: 30rpx;
+}

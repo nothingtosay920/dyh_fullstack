@@ -1,0 +1,24 @@
+<!--pages/home/home.wxml-->
+<nav-bar
+ title="首页"
+ statusBarColor="#42bd55"
+ navBarColor="#43bd55"
+ titleColor="#fff"
+></nav-bar>
+<view>
+	<mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+	<view class="row">
+		<view class="title-wrapper">
+			<view class="title">影院热映</view>
+			<view class="title-right">
+				<view class="more">查看更多</view>
+				<view class="arrow"></view>
+			</view>
+			</view>
+		<scroll-view class="scroll-view__movie" scroll-x="true">
+			<!-- 组件 -->
+			<movieItem class="item"></movieItem>
+		</scroll-view>
+	</view>
+</view>
+

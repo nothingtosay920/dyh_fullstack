@@ -1,0 +1,12 @@
+<!--components/movieitem/movieitem.wxml-->
+<view class="item">
+    <view class="info">
+        <image class="img" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2063352404,1793478785&fm=26&gp=0.jpg" />
+        <view class="name">旺仔牛奶</view>
+        <view class="scroll-wrapper">
+            <!-- 星星 -->
+            <ratingStar score="45"></ratingStar>
+            <view class="score">8.5</view>
+        </view>
+    </view>
+</view>
