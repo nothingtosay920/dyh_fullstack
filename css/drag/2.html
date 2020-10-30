@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 回文 
+        var isValid = function (str) {
+            // 0 len - 1
+            // 1 len - 2 
+            let i = 0,j = str.length - 1 
+            while(i < j) {
+                if(!/[0-9a-zA-Z]/.test(str[i])) {
+                    i++;
+                    continue;
+                }
+                if(!/[0-9a-zA-Z]/.test(str[j])) {
+                    j--;
+                    continue;
+                }
+                let left = str[i],right = str[i]
+                if (left.toLowCase() !== right.toLowCase()) return false;
+                i++;
+                j--;
+            }
+            // i === j 的时候退出
+            return true;
+        }
+    </script>
+</body>
+</html>
