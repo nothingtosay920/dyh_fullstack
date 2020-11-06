@@ -20,8 +20,26 @@ var obj = Object.create(null) // => undefined
 
 
 var num = 123
+
+
 // => var num = new Number(123) Number对象
+// 方法重写
+Number.prototype.toString = function () {
+    return 'hehe'
+}
 num.toString()
 
-var str = 'hello'
+// Number.prototype.__proto__ = Object.prototype
+var str = 'hello' // new String('hello')
 console.log(str.length);
+
+Object.prototype.toString = function () {
+    personalbar.prototype.toString = function () {
+        return 'hehe'
+    }
+}
+
+function Person() {
+}
+var person = new Person()
+console.log(person.toString());
