@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        // 接口请求 settimeout setinterval 是异步 
+        function getSong(callback) {
+            $.ajax({
+                url:'http://neteasecloudmusicapi.zhaoboy.com/top/list?idx=1',
+                dataType: 'JSON',
+                success: function(res) {
+                    console.log(res.playlist.tracks[0].name);
+                    callback()
+                }
+            })
+        }
+        function singSong() {
+            console.log('sing');
+        }
+        getSong()
+    </script>
+</body>
+</html>
