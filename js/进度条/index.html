@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * { margin: 0;padding: 0;}
+        body {
+            margin-top: 40px;
+        }
+        .progress-bar {
+            width: 80%;
+            margin-left: 30px;
+            height: 3px;
+            background-color: rgba(0, 0, 0, .3);
+            position: relative;
+        }
+        .progress-button {
+            position: absolute;left: 0;top: 0;
+            width: 16px;height: 16px;background-color: yellow;
+            transform: translate3d(-50%, -50%, 0);
+        }
+        .progress {
+            position: absolute;top: 0;left: 0;
+            height: 100%;width: 0;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <!-- <input type="text"> -->
+    <div class="progress-bar">
+        <!-- 进度 相对progress-bar定位 -->
+        <div class="progress"></div>
+        <!-- 按钮 相对progress-bar绝对定位 -->
+        <div class="progress-button"></div>
+    </div>
+    <script>
+        // vue / react 组件
+        // 面向对象 属性 方法
+        const btn  = document.querySelector('.progress-button');
+        const progress = document.querySelector('.progress')
+        const progressBar = document.querySelector('.progress-bar')
+        const width = progressBar.offsetWidth
+        let downX = 0;
+        let downLeft = 0;
+        btn.addEventListener('touchstart', () => {
+            const touch = event.touches[0]
+            downX = touch.clientX
+            downLeft = parseInt(btn.style.left || 0)
+        })
+        btn.addEventListener('touchmove', () => {
+            const touch = event.touches[0]
+            // 捏
+            const diffx = touch.clientX - downX
+            let move = diffx + downLeft
+            if (move < 0) {
+                move = 0
+            }else if (move > width) {
+                move = width
+            }
+            btn.style.left = `${diffx}px`
+            progress.style.width = `${ diffx / width * 100 }%`
+        })
+    </script>
+</body>
+</html>
