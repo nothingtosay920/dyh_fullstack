@@ -21,6 +21,12 @@ let b = JSON.parse(JSON.stringify(a)) // 把JSON字符串转为JSON对象
 // obj.b.c = obj.c
 // obj.b.d = obj.b
 
+let test = {
+    age: undefined,
+    sex: Symbol('man'),
+    jobs: function() {},
+    name: 'wn'
+}
 
 
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 90px;height: 90px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">123</div>
+    <script>
+        // appendChild insertBefore
+        const app = document.querySelector('#app')
+        let image = new Image()
+        image.src = 'https://pic4.zhimg.com/v2-2103acaf025ceda331a0dd59022443ab_r.jpg'
+        let start = app.getBoundingClientRect()
+        setTimeout(() => {
+            const div = document.createElement('div')
+            // div.style.width = '40px'
+            // div.style.height = '40px'
+            // div.style.backgroundColor = 'red'
+            document.body.insertBefore(div,app)
+            let last = app.getBoundingClientRect()
+            // fist 123 起点 0 
+            // last 123 终点 40
+            // invert 反转  -40 0
+            const frams = [
+                {
+                    // 第一帧
+                    transform: `translateY(${start.top - last.top})`
+                },
+                {
+                    transform: `translateY(0)`
+                }
+            ]
+            // play
+            app.animate(frams, {
+                duration: 300,
+                easing: 'ease-in-out'
+            })
+        }, 3000)
+        // Map
+        // {}
+    </script>
+</body>
+</html>

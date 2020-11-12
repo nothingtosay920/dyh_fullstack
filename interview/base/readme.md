@@ -40,3 +40,8 @@ boolean null undefined number string symbol
 # 深浅拷贝 copy.js
 Object.assign() 如果拷贝的属性是原始值类型,那么是深拷贝,如果拷贝的是引用类型,那么是浅拷贝
 解构赋值同上
+JSON.parse(JSON.stringify()) 的缺陷:
+1. 会忽略undefined
+2. 会忽略Symbol
+3. 不能序列化函数
+4. 不能解决循环引用的对象
