@@ -90,6 +90,26 @@
               newimage.forEach((item) => {
                 document.querySelector('.wrap').appendChild(item)
               })
+              let last = new Map()
+              newimage.forEach((item) => {
+                last.set(item, item.getBoundingClientRect())
+              })
+              newimage.forEach((item) => {
+                  let x = map.get(item).left - last.get(item).left
+                  let y = map.get(item).top - last.get(item).top
+                  let keyFrame = [
+                      {
+                          transform: `translate(${x}px,${y}px)` 
+                      },
+                      {
+                          transform: `translate(0px,0 px)` 
+                      }
+                  ]
+                  item.animate(keyFrame, {
+                      duration: 300,
+                      easing: 'ease-in-out'
+                  })
+              })
               
           }
       </script>

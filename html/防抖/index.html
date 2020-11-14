@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="suggest">
+    <div id="wrap"></div>
+    <script>
+        // 防抖: 电梯 电梯关门
+        // 对于高频触发的事件,不是触发一次执行一次
+        const suggest = document.querySelector('#suggest')
+        let timeOut = null
+        function handInput(event) {
+            if (timeOut) clearTimeout(timeOut)
+            timeOut = setTimeout(() => {
+                const val = event.target.value
+                if (!val) return
+                const url = `http://neteasecloudmusicapi.zhaoboy.com/search?keywords=${val}`
+                fetch(url).then(res => res.json()).then(data => {
+                    let lis = data.result.songs.map((item) => {
+                        return `<li>${item.name}</li>`
+                    })
+                    let html = lis.join('')
+                    document.querySelector('#wrap').innerHTML = html
+                })
+            }, 500)
+
+
+        }
+        suggest.addEventListener('input', handInput)
+    </script>
+</body>
+
+</html>
