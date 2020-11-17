@@ -1,0 +1,37 @@
+<script>
+    // [5, 3, 4, -1, -2, 9, -8]
+    // 去掉一个5
+    // [-8, 3, 4, -1, -2, 9, -8]
+    function cb(a, b) {
+        return a - b
+    }
+
+    function partition(arr, left, right) {
+        if (left > right) {
+            return;
+        }
+        let privt = arr[left] 
+        let i = left, j = right
+        while(i < j) {
+            // 在右边找到小于基准值的数 左边找到大于基准值的数
+            // 右边找到 < privt
+            while(arr[j] >= privt && i < j) {
+                j --;
+            }
+            arr[i] = arr[j]
+            // 左边找到 > privt
+            while(arr[i] <= privt && i < j) {
+                i ++;
+            }
+            arr[j] = arr[i]
+        }
+        arr[i] = privt
+        // i j 代表基准值位置
+        partition[arr, left, i - 1]
+        partition[arr, i + 1, right]
+    }
+    function sort(arr) {
+        partition(arr, 0, arr.length - 1)
+        return arr;
+    }
+</script>
