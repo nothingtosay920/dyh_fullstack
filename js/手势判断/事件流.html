@@ -12,5 +12,30 @@
             1
         </div>
     </div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        const id1 = document.getElementById('id1')
+        id1.addEventListener('click', () => {
+            console.log('id1 click');
+        }, false)
+        id2.addEventListener('click', () => {
+            console.log('id2 click');
+        }, false)
+
+        // let lis = document.querySelectorAll('li')
+        // lis.forEach(ele => {
+        //     ele.addEventListener('click', () => {
+        //         console.log(ele.textContent);
+        //     })
+        // })
+        const ul = document.querySelector('ul')
+        ul.addEventListener('click', (event) => {
+            console.log(event.target.textContent);
+        })
+    </script>
 </body>
 </html>
