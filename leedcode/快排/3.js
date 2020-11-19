@@ -17,28 +17,35 @@
  */
 var kClosest = function (points, K) {
     // 找到左边比基数大的数
-    function partition(left, right) {
-        let i = 0, j = points.length - 1
-        let privt = points[0]
+    function partition(arr, left, right) {
+        if (left > right) {
+            return;
+        }
+        let i = left, j = right
+        let privt = arr[left]
         function getPow(num) {
             return Math.pow(num[0], 1 * 2) + Math.pow(num[1], 1 * 2)
         }
         while (i < j) {
-            while (getPow(points[j]) >= getPow(privt) && i < j) {
+            while (getPow(arr[j]) >= getPow(privt) && i < j) {
                 j--;
             }
-            points[i] = points[j]
-            while (getPow(points[i]) <= getPow(privt) && i < j) {
+            arr[i] = arr[j]
+            while (getPow(arr[i]) <= getPow(privt) && i < j) {
                 i++;
             }
-            points[j] = points[i]
+            arr[j] = arr[i]
         }
-        points[i] = privt
-        return i
+        arr[i] = privt
+        partition(arr, left, i - 1)
+        partition(arr, i + 1, right)
     }
-
-    let 
-    //  2 3 4 1 0 
+    partition(points, 0, points.length - 1)
+    let lis = []
+    for (let i =  0; i < K  ; i++) {
+        lis.push(points[i])        
+    }
+    return lis
     // 2
     //  0 3 4 1 0
     //  0 3 4 1 3
@@ -46,4 +53,4 @@ var kClosest = function (points, K) {
     //  0 1 4 4 3
     //  0 1 2 4 3
 };
-console.log(kClosest([[2, 3], [1, 2], [3, 4], [2, 1], [2, 8], [2, 2]]));
+console.log(kClosest([[1,3],[-2,2]], 1));
