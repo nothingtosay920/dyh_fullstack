@@ -3,6 +3,11 @@ function throttle(fn, delay) {
     let prev = Date.now() // 上一次点击
     return function () {
         let now = Data.now() // 这一次点击
-        fn()
+        let context = this
+        let arg = arguments
+        if (now - prev >= delay) {
+            fn.apply(context, arg)
+            prev = Date.now()
+        }
     }
 }

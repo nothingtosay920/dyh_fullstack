@@ -12,7 +12,7 @@ cpu工作时间的描述 工作时间片段
 
 # Event Loop
 微任务: process.nextTick,promise,MutaionOvserver
-宏任务: script(同步代码 也称之为宏任务),setTimeout,setInte rval,setImmediate,I/O,UI-rendering
+宏任务: script(同步代码 也称之为宏任务),setTimeout,setInterval,setImmediate,I/O,UI-rendering
 
 执行顺序:
 1. 执行同步代码,这属于宏任务
