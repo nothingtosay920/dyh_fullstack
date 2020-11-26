@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import CommentApp from './CommentApp';
 
 class Header extends Component {
   render() {
@@ -14,12 +15,10 @@ class Header extends Component {
   }
 }
 
-
-
 ReactDOM.render(
   <React.StrictMode>
     {/* {<App />} */}
-    <Header/>
+    <CommentApp/>
   </React.StrictMode>,
   document.getElementById('root')
 );
