@@ -8,7 +8,9 @@
       <!-- a标签 -->
     
       <!-- 路由入口 -->
-      <router-view></router-view>
+      <transition name="fade">
+        <router-view ></router-view>
+      </transition>
     </div>
 </template>
 
@@ -25,5 +27,22 @@ export default {
 </script>
 
 <style>
-
+.fade-enter {
+  opacity: 0;
+}
+.fade-leave {
+  opacity: 1;
+}
+.fade-enter-active {
+  transition: opacity 0.5;
+}
+.fade-leave-active {
+  opacity: 0;
+}
+.page {
+  text-align: center;
+}
+p {
+  text-align: center;
+}
 </style>
