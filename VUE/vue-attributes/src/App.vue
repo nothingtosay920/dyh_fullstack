@@ -1,12 +1,45 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <!-- 父组件向子组件通信
+    <Hello :message= "title" @sendData="getData" :formHI="formHI" />
+    {{formChild}}
+    组件相互传数据 <H1 @sendHI="getHI" /> -->
+    <A/>
+    <B/>
   </div>
 </template>
+
+<script>
+// import Hello from '@/components/Hello.vue'
+// import H1 from '@/components/Hi.vue'
+import A from '@/components/A'
+import B from '@/components/B'
+export default {
+  name: 'App',
+  data () {
+    return {
+      title: '我爱我的祖国',
+      formChild: '',
+      formHI: ''
+    }
+  },
+  components: {
+    // Hello,
+    // Hi
+    A,
+    B
+  },
+  methods: {
+    getData (e) {
+      this.formChild = e
+    },
+    getHI (e) {
+      this.formHI = e
+    }
+  }
+}
+
+</script>
 
 <style>
 #app {
