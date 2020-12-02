@@ -1,0 +1,24 @@
+<script>
+    let html = `
+    <div>
+        {{name}}
+        <p>{{age}}</p>
+    </div>
+    `
+    let obj = {
+        name: '小米', age: 19
+    }
+    function compiler(str, obj) {
+        const reg = /{{([a-z]{1,})}}/g
+        let info = /{{([a-z]{1,})}}/g.exec(str)
+        while (info) {
+            let k = info[1]
+            let v = obj[k]
+            str = str.replace(info[0], v)
+            console.log(info);
+            info = /{{([a-z]{1,})}}/g.exec(str)
+        }
+        return str
+    }
+    compiler(html, obj)
+</script>

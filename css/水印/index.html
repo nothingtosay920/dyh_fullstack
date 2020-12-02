@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #watermark {
+      position: fixed;
+      left: 0;top: 0;right: 0;bottom: 0;
+      display: flex;
+      flex-wrap: wrap;
+      z-index: -1;
+    }
+    .item {
+        position: relative;
+        width: 100px;height: 100px;
+        display: flex;
+        align-items: center;justify-content: center;
+    }
+    .text {
+        /* 包含块 */
+        position: relative;
+        transform: rotate(45deg);
+        opacity: 0.1;
+    }
+  </style>
+</head>
+<body>
+  <div id="button">按钮</div>
+  <div id="watermark">
+    <div class="item">
+      <div class="text">001</div>
+    </div>
+    <div class="item">
+        <div class="text">001</div>
+      </div>
+    <div class="item">
+        <div class="text">001</div>
+    </div>
+  </div>
+  <script>
+      const button = document.getElementById('button')
+      button.addEventListener('click', () => {
+          console.log(123);
+      })
+      // MutationObserver 变动观察者
+      // DOM 结构的变更 你是可以观察到的
+  </script>
+</body>
+</html>
