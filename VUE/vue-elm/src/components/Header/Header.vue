@@ -1,49 +1,74 @@
 <template>
-  <div class="header">
+  <div class="header" @click="showDetail">
       <div class="content-wrapper">
         <div class="avatar">
-            <img width="64" height="64" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2944606985,3722907313&fm=11&gp=0.jpg" alt="">
+            <img width="64" height="64" :src="seller.avatar" alt="">
         </div>
 
         <div class="content">
             <div class="title">
                 <span class="brand"></span>
-                <span class="name">阿么零食铺</span>
+                <span class="name">{{seller.name}}</span>
             </div>
             <div class="description">
-                蜂鸟专送/30分钟送达
+                {{seller.description}}/{{seller.deliveryTime}}
             </div>
 
-            <div class="support">
-                <SupportIco :size=1 :type=0></SupportIco>
-                <span class="text">在线支付,满28-5</span>
+            <div class="support" v-if="seller.supports">
+                <SupportIco :size=1 :type=seller.supports[0].type></SupportIco>
+                <span class="text">{{seller.supports[0].description}}</span>
             </div>
         </div>
 
-        <div class="support-count">
-          <span class="count">5个</span>
+        <div class="support-count" v-if="seller.supports">
+          <span class="count" >{{seller.supports.length}}个</span>
           <i class="icon-keyboard_arrow_right"></i>
         </div>
 
       </div>
       <div class="bulletin-wrapper">
         <span class="bulletin-title"></span>
-        <span class="bulletin-text">海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃海底捞海底捞海底捞好吃</span>
+        <span class="bulletin-text">{{seller.bulletin}}</span>
         <i class="icon-keyboard_arrow_right"></i>
       </div>
 
       <!-- 背景图 -->
       <div class="background">
-        <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2944606985,3722907313&fm=11&gp=0.jpg" width="100%" height="100%">
+        <img :src="seller.avatar" width="100%" height="100%">
       </div>
+
+      <HeaderDetail :seller="seller" v-show="detailVisible" @hide="hideDetail"></HeaderDetail>
   </div>
 </template>
 
 <script>
 import SupportIco from '@/components/support-ico/Support-ico'
+import HeaderDetail from '@/components/Header-detail/Header-detail'
 export default {
+  props: {
+    seller: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
+  data () {
+    return {
+      detailVisibl: false
+    }
+  },
   components: {
-    SupportIco
+    SupportIco,
+    HeaderDetail
+  },
+  methods: {
+    showDetail () {
+      this.detailVisibl = true
+    },
+    hideDetail (e) {
+      this.detailVisibl = e
+    }
   }
 }
 </script>
