@@ -1,5 +1,5 @@
 {
-  "name": "vue-elm",
+  "name": "vue-eleme",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "better-scroll": "^2.0.6",
     "core-js": "^3.6.5",
     "query-string": "^6.13.7",
     "vue": "^2.6.11",
@@ -20,10 +21,5 @@
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.11"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  }
 }
