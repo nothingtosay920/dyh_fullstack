@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 // 将物理的数据存储转变为JSON对象
 // Schema 帮我们创建类 给我们API
 // 只要看到Schema 就相当于看到了表结构
+// mongoose 是翻译者
 const Schema = mongoose.Schema
 const articleSchema = new Schema(
     {
@@ -24,8 +25,18 @@ const userSchema = new Schema({
     atricles: [articleSchema],
     links: [linkSchema]
 })
+const User = mongoose.model('User', userSchema)
+new User({
+    name: 'tmp',
+    password: '0000',
+    email: 'lizhun@163.com',
+    emailCode: '12345',
+    createTime: Date.now(),
+    atricles: [],
+    links: []
+}).save(function () {
 
-new user()
+})
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
 

@@ -39,3 +39,15 @@ NOSQL /test/a.bson
     mysql 关系型数据库 mongodb nosql 都有学习 对js特别友好 json存就可以
     索引进行过学习
     nums 20000条json
+
+  - 电商应用
+    node mongodb
+  - 数据怎么进数据库
+    - 先连接
+      mongodb url once('once')
+    - 对数据库建模
+      userSchema 字段名 + 类型
+      mongoose.model('user', userSchema)
+      new User.save()
+
+    M层完成
