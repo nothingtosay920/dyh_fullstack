@@ -1,18 +1,13 @@
 // https://leetcode-cn.com/problems/sum-of-root-to-leaf-binary-numbers/
 // 从根到叶二进制之和
 
-var sumRootToLeaf = function (root, val, arr = []) {
-    function getValue(root, str = "") {
-        if (!root) return arr.push(str)
-        str += root.val
-        getValue(root.left)
-        getValue(root.right)
+var sumRootToLeaf = function (root, val = '') {
+    if(!root) return 0
+    val += root.val
+    if (!root.left && !root.right) {
+        return parseInt(Number(val), 2)
     }
-    getValue(root)
-    arr.forEach(element => {
-        val += parseInt(element, 2)
-    });
-    return val
+    return sumRootToLeaf(root.left, val) + sumRootToLeaf(root.right, val)
 };
 
 // 有缘再写

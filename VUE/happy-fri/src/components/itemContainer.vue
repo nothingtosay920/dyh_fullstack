@@ -4,80 +4,86 @@
       <span class="num_tip" v-if="isHome">第一周</span>
       <span class="num_tip" v-else>题目{{itemNum}}</span>
     </header>
-
     <!-- 首页 -->
     <div v-if="isHome">
       <div class="home_logo item_container_style"></div>
       <router-link class="start button_style" to="/item"></router-link>
     </div>
-
     <!-- 答题页面 -->
     <div v-else>
       <div class="item_back item_container_style">
         <div class="item_list_container">
-          <header class="item_title">{{itemDetail[itemNum - 1].topic_name}}</header>
+          <header class="item_title">{{itemDetail[itemNum-1].topic_name}}</header>
           <ul>
-            <li class="item_list" v-for="(item, index) in itemDetail[itemNum -1 ].topic_answer" :key="index" @click="choosed(index, item.topic_answer_id)">
-              <span class="option_style" :class="{'has_choosed':choosedNum == index}">{{chooseType(index)}}</span>
-              <span class="option_detail">{{item.answer_name}}</span>
+            <li class="item_list" v-for="(item, index) in itemDetail[itemNum-1].topic_answer" :key="index" @click="choosed(index, item.is_standard_answer)">
+              <span class="option_style" :class="{'has_choosed': choosedNum == index}">{{chooseType(index)}}</span>
+              <span class="option_detail" @click="submitAnswer">{{item.answer_name}}</span>
             </li>
           </ul>
         </div>
       </div>
+      <span class="next_item button_style" v-if="itemNum < itemDetail.length" @click="nextItem"></span>
+      <span class="submit_item button_style" v-else></span>
     </div>
-
-    <!-- 下一题的按钮 -->
-    <span class="next_item button_style" @click="nextItem"></span>
   </section>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
+import { mapState, mapActions } from 'vuex'
 export default {
-  data () {
+  props: ['fatherComponent'],
+  data() {
     return {
       isHome: false,
       choosedNum: null, // 选中的答案的索引
-      choosedId: null // 选中的答案的id
+      choosedId: null, // 选中的答案的id
     }
   },
-  computed: {
-    ...mapState(['itemDetail', 'itemNum'])
-    },
-  props: ['fatherComponent'],
+  computed: mapState(['itemDetail','itemNum']),
   created() {
     if (this.fatherComponent === 'home') {
-        this.isHome = true      
+      // 出现首页的dom
+      this.isHome = true
     }
   },
   methods: {
+    ...mapActions(['addNum']),
     chooseType(type) {
-      switch (type) {
-        case 0: return 'A'
-        case 1: return 'B'
-        case 2: return 'C'
-        case 3: return 'D'
-        case 4: return 'E'
+      switch(type) {
+        case 0: return 'A';
+        case 1: return 'B';
+        case 2: return 'C';
+        case 3: return 'D';
       }
     },
+    // 选中的答案
     choosed(index, id) {
-      // 选中答案
-        this.choosedNum = index
-        this.choosedId = id
+      this.choosedNum = index
+      this.choosedId = id
     },
     // 下一题
     nextItem() {
       if (this.choosedNum !== null) {
         // 清除choosedNum
-        // 保存答案 跳到下一题
+        // 保存答案，题目索引加一，跳到下一题
+        this.choosedNum = null
+        this.addNum(this.choosedId)
       } else {
-        alert('选答案啊')
+        alert('您还没有选择答案哦')
+      }
+    },
+    // 到达最后一题交卷
+    submitAnswer() {
+      if (this.choosedNum !== null) {
+        this.addNum(this.choosedId)
+        this.$router.push('/score')
+      } else {
       }
     }
   }
 }
 </script>
+
 
 <style lang="less" scoped>
   .top_tips{
