@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let pre = 0
+    let wait = 2000
+    function onResize() {
+      let current = Date.now()
+      if (current - pre) {
+        console.log('发出网络请求');
+        pre = current
+      }
+    }
+    window.addEventListener('resize', onResize)
+
+    let p = 0
+    function onScorll () {
+      let c = Date.now()
+      if (c - p > wait) {
+        console.log('窗口滚动');
+        p = c
+      }
+    }
+    // window.addEventListener('scroll', onScorll)
+    // 相同的 对某件事节流 (共同的流程 1 2 3 4)
+    // 不同的 对某件事节流 (要做的事不一样)
+    // 要做的事 函数
+
+    const func1 = () => {
+      console.log('窗口滚动了');
+    }
+    // 高阶函数
+    function throttle(fn) {
+      let p = 0
+      return function () {
+        let current = Date.now()
+        if (current - p >2000) {
+          // 做某件事
+          fn()
+          p = current
+        }
+      }
+    }
+    const xx = throttle(func1)
+    // func 不具有节流功能 (时间戳 控制)
+    // 被 throttle 包裹之后 带有节流功能
+    window.addEventListener('resize', xx)
+  </script>
+</body>
+</html>

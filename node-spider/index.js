@@ -3,7 +3,7 @@ const https = require('https')
 // 加载cheerio
 const cheerio = require('cheerio')
 const fs = require('fs')
-https.get('https://movie.douban.com/top250', (res) =>{
+https.get('http://api.douban.com/v2/movie/new_movies?apikey=0df993c66c0c636e29ecbb5344252a4a', (res) =>{
     let html = ''
     res.on('data', (chunk)=>{
         // console.log(html)
