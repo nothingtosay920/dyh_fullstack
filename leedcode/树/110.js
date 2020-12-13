@@ -1,10 +1,15 @@
 // 平衡二叉树
-var isBalanced = function(root, count = 0) {
-    if (!root) {
-        return 
+var isBalanced = function(root) {
+    function recur(root) {
+        if (root ==  null) return 0
+        let lf = recur(root.left)
+        if (lf == -1) return -1 
+        let rh = recur(root.right)
+        if (rh == -1) return -1
+        return Math.abs(lf - rh) < 2 ? Math.max(lf, rh) + 1 : -1
     }
-    count++
-    isBalanced(root.left, count)
-    isBalanced(root.right, count)
-    return 
+    return recur(root) != -1
 };
+
+
+// 思路不同 多做吧
