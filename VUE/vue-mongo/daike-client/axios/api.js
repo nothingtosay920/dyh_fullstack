@@ -6,6 +6,7 @@ import router from 'vue-router'
 
 export default function $axios(options) {
   return new Promise((resolve, reject) => {
+    // 创建一个接口请求
     const instance = axios.create({
       baseURL: config.baseURL
     })

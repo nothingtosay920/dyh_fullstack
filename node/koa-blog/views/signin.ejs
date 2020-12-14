@@ -1,0 +1,27 @@
+<%- include('header', {type: 'signin'}) %>
+<div class="container">
+  <!-- 自带submit事件 自动提交post请求 -->
+  <form class="form create" method="post">
+    <div>
+      <label>用户名</label>
+      <input type="text" placeholder="用户名" name="name">
+    </div>
+    <div>
+      <label>密码:</label>
+      <input type="password" placeholder="密码" name="password">
+    </div>
+    <div class="submit">登录</div>
+  </form>
+</div>
+<script>
+  $('.submit').click(function () {
+    if ($('input[name=name]').val().trim() == '' || $('input[name=password]').val().trim() == '') {
+      fade('请输入用户名密码')
+    } else {
+      // serialize 序列化
+      console.log($('.form').serialize());
+    }
+  })
+</script>
+
+<% include footer %>
