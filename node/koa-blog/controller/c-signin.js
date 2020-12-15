@@ -1,5 +1,5 @@
-exports.postSign = async ctx => {
+exports.postSigin = async ctx => {
   await ctx.render('signin', {
-    session: ctx.session  // 模板生效
+    session: ctx.session // 模版文件生效
   })
 }
