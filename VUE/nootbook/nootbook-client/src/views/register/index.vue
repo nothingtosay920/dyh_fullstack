@@ -1,62 +1,80 @@
 <template>
   <div class="star-login">
-    <h1>登录</h1>
+    <h1>注册</h1>
     <div class="login-wrapper">
-      <div class="avatar" :style="`background-image:url(${avatar})`"></div>
+      <div class="avatar" :style="`background-image: url(${avatar})`"></div>
 
       <div class="input-group">
+        <label for="username">昵称</label>
+        <input type="text" id="nickname" v-model="nickname">
+      </div>
+
+      <div class="input-group input-group-panel">
         <label for="username">账号</label>
-        <input type="text"  id="username" v-model="username">
+        <input type="text" id="username" v-model="username">
       </div>
 
       <div class="input-group input-group-panel">
         <label for="userpwd">密码</label>
-        <input type="password"  id="userpwd" v-model="userpwd">
+        <input type="password" id="userpwd" v-model="userpwd">
       </div>
 
-      <p class="forgot-pwd">忘记密码</p>
-      <div class="sign" @click="login">登录</div>
+      <div class="sign" @click="register">注册</div>
     </div>
-
-    <p class="register" @click="register">新用户？点击这注册</p>
+    <p class="register" @click="login">已有账号？点击登录</p>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       avatar: require('./../../assets/raw_1512446140.jpeg'),
+      nickname: '',
       username: '',
       userpwd: ''
     }
   },
   methods: {
-    login() {
-      if (this.username.trim() === "" || this.userpwd.trim() === "") {
-        this.$toast('账号或密码不能为空')
-        return
+    register () {
+      // 拿到注册信息
+      // 发起接口请求
+      if(this.nickname.trim() == "" || this.nickname.trim() == null){
+        this.$toast('请输入账号');
+        return ;
       }
-      // 发接口请求
+      if(this.username.trim() == "" || this.username.trim() == null){
+        this.$toast('请输入账号');
+        return ;
+      }
+      if(this.userpwd.trim() == "" || this.userpwd.trim() == null){
+        this.$toast('请输入密码');
+        return ;
+      }
       this.$http({
         method: 'post',
-        url: this.$util.baseUrl + 'users/userLogin',
+        url: this.$util.baseUrl+'users/userRegister',
         data: {
+          nickname: this.nickname.trim(),
           username: this.username.trim(),
           userpwd: this.userpwd.trim()
         }
-      }).then(res => {
+      }).then(
+        res => {
           console.log(res);
-        if(res.data.code === '80000') {
-          sessionStorage.setItem('userInfo', JSON.stringify(res.data.data))
-          this.$router.push('/noteClass')
+          if (res.data.code == '80000') {
+            this.$router.push('/starLogin')
+          } else {
+            this.$toast(res.data.mess)
+          }
         }
-      })
+      )
     },
-    register() {
-      this.$router.push('/starRegister')
+    login () {
+      this.$router.push('/starLogin')
     }
   }
+    
 }
 </script>
 
@@ -71,7 +89,6 @@ input {
   background: #fff;
   padding: 0 1.28rem;
   overflow: hidden;
-  box-sizing: border-box;
   h1 {
     margin-top: 1.12rem;
     height: 0.693333rem;
@@ -83,11 +100,12 @@ input {
   }
   .login-wrapper {
     width: 7.44rem;
-    height: 10.773333rem;
+    height: 11.413333rem;
     margin-top: 1.706667rem;
     border-radius: 0.266667rem;
     box-shadow: 0 0 0.533333rem 0 rgba(170, 170, 170, 1);
     border: 1px solid rgba(187, 187, 187, 1);
+    position: relative;
     overflow: hidden;
     .avatar {
       width: 2.4rem;
@@ -97,6 +115,16 @@ input {
       background-position: center;
       background-repeat: no-repeat;
       background-size: 100% 100%;
+    }
+    .badge-img{
+      position: absolute;
+      width: 1.2rem;
+      height: 1.2rem;
+      line-height: 1.2rem;
+      left: 4.266667rem;
+      top: 2.453333rem;
+      color: rgba(16, 16, 16, 0.5);
+      text-align: center;
     }
     .input-group {
       width: 5.546667rem;
@@ -128,17 +156,8 @@ input {
     .input-group-panel {
       margin-top: 10px;
     }
-    .forgot-pwd{
-        margin:10px auto .56rem 1.973333rem; 
-        height: .613333rem;
-        line-height: .453333rem;
-        opacity: 0.3;
-        color: rgba(16, 16, 16, 1);
-        font-size: .32rem;
-        font-family: Arial;
-    }
     .sign{
-        margin: 0 auto;
+        margin: .8rem auto 0;
         width: 5.546667rem;
         height: 1.226667rem;
         line-height: 1.226667rem;
@@ -150,11 +169,12 @@ input {
         color: rgba(255, 255, 255, 1);
         font-size: .48rem;
         font-family: Arial;
+        margin-top: 10px;
     }
   }
   .register {
     height: 0.613333rem;
-    margin-top: 2.16rem;
+    margin-top: 1.52rem;
     line-height: 0.613333rem;
     opacity: 0.3;
     color: rgba(16, 16, 16, 1);
