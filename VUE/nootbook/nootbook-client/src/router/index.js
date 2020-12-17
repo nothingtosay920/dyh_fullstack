@@ -6,10 +6,13 @@ import noteClass from '@/views/noteClass/index'
 import noteList from '@/views/noteList/index'
 import noteDetail from '@/views/noteDetail/index'
 import noteEdit from '@/views/noteEdit/index'
-
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    redirect: '/StarLogin'
+  },
   {
     path: '/StarLogin',
     name: "StarLogin",

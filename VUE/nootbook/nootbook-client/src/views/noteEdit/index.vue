@@ -74,7 +74,8 @@ export default {
       ],
       show: false,
       preImg: "",
-      selectCon: ''
+      selectCon: '',
+      title: '标题'
     }
   },
   components: {
@@ -98,8 +99,8 @@ export default {
       let nickname = JSON.parse(sessionStorage.getItem('userInfo')).nickname
 
       this.$http({
-        methods: 'post',
-        url: this.$util.baseUrl + 'users/insertNote',
+        method: 'post',
+        url: this.$util.baseUrl + 'users/noteEdit',
         data: {
           note_content: this.content,
           head_img: this.preImg,

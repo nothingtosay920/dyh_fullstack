@@ -1,5 +1,6 @@
 const mysql = require('mysql')
 const config = require('./defaultConfig')
+const getTime = require('../controllers/util')
 
 // 连接线程池
 let pool = mysql.createPool({
@@ -60,10 +61,17 @@ let findDetailById = function (id) {
   let _sql = `select * from note where id="${id}"`
   return allServices.query(_sql)
 }
+
+// 发布信息 
+let insertNote = function (values) {
+  let _sql = `insert into note set useId=?,title=?,note_type=?,note_content=?,head_img=?,nickname=?,c_time=?`
+  return allServices.query(_sql, values)
+}
 module.exports = {
   userLogin,
   findUser,
   insertUser,
   findNoteListByType,
-  findDetailById
+  findDetailById,
+  insertNote
 }

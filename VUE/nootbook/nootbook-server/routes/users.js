@@ -1,6 +1,5 @@
 const router = require('koa-router')()
 const userService = require('../controllers/mySqlConfig')
-
 router.prefix('/users') // 默认添加前缀
 
 router.post('/userLogin', async (ctx, next) => {
@@ -102,6 +101,23 @@ router.post('/findDetailById', async (ctx, next) => {
       data: res[0],
       mess: '查找成功'
     } 
+  })
+})
+
+router.post('/noteEdit', async (ctx, next) => {
+  const time = new Date()
+  let c_time = `${time.getFullYear()}年${time.getMonth()}月${time.getUTCDate()}`
+  let note_content = JSON.stringify(ctx.request.body.note_content)
+  let head_img = ctx.request.body.head_img
+  let note_type = ctx.request.body.note_type
+  let userId = JSON.stringify(ctx.request.body.userId)
+  let nickname = ctx.request.body.nickname
+  let title = ctx.request.body.title
+  await userService.insertNote([userId, title, note_type, note_content, head_img, nickname, c_time]).then(res => {
+    ctx.body = {
+      code: '80000',
+      mess: '插入成功'
+    }
   })
 })
 module.exports = router
