@@ -7,3 +7,6 @@ var listOfDepth = function(tree, aswer = []) {
   arr.push(tree.val)
   arr.push(listOfDepth(tree.left), )
 };
+
+
+// 有缘再写
