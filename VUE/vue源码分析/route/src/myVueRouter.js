@@ -4,6 +4,8 @@ class HistoryRoute {
     this.current = null
   }
 }
+// 目标 创建2个组件 给到vue 要使用Vue.mixin将插件混入每一个vue实例中
+// 需要判断两种模式
 
 
 class VueRouter {
@@ -109,8 +111,32 @@ export default VueRouter
 //   if (typeof plugin.install === 'function') {
 //     plugin.install.apply(plugin, args)
 //   } else if (typeof plugin === 'function') {
-//     plugin.apply(null, plugin, args)
+//     plugin.apply(null, args)
 //   }
 //   installedPlugins.push(plugin)
 //   return this
 // }
+
+
+// export function toArray (list: any, start?: number): Array<any> {
+//   start = start || 0
+//   let i = list.length - start
+//   const ret: Array<any> = new Array(i)
+//   while (i--) {
+//     ret[i] = list[i + start]
+//   }
+//   return ret
+// }
+
+// 1. 未注册过 则_installedPlugins为空 赋值一个空数组用来存储 然后就要进行注册
+// 2. _installedPlugins中已经有值 需要用indexOf判断当前注册的插件是否已经注册过 已经注册就return 当前的vue 没有注册就要进行注册
+// 3. 注册插件需要调用插件的install方法 如果插件是个obj 就执行对象的install方法并且调用apply方法 将this指向插件传入参数
+
+
+
+/** 
+ * Vue.use 用来注册插件 插件可能是 func 和 object 将当前Vue实例交给插件的install方法
+ * 在Vue的构造函数中存入_installedPlugins用来存储已经注册的插件 默认存入空字符串 用来在之后判断_installedPlugins是否为空
+ * 当每次调用use时,都要取到_installedPlugins来知道已经注册的插件有哪些 
+ * 如果_installedPlugins为空 则赋值一个空数组用来存储
+ *  */ 

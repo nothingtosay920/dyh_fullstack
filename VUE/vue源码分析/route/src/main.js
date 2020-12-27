@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from './router/index'
 
 Vue.config.productionTip = false
 // vue.use() 的一个原则是use的对象 必须具备install这个方法
