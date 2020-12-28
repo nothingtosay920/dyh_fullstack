@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="container">0</div>
+  <button id="button">add</button>
+
+
+  <script>
+    let button = document.getElementById('button')
+    let container = document.getElementById('container')
+
+    (function() {
+      function watch(target, func) {
+        let handler = {
+          get: function(target, prop) {
+            return target[prop]
+          },
+          set: function(target, prop, value) {
+            target[prop] = value
+            func(prop, value)
+          }
+        }
+        let proxy = new Proxy(target, handler)
+
+        return proxy  
+      }
+      // this.watch = watch
+    })()
+
+    let obj = {
+      value: 0
+    }
+
+    // 监听obj
+    let newobj = watch(obj, function(key, newValue) {
+      if (key === 'value') {
+        container.innerHtml = newValue
+      }
+    })
+
+    button.addEventListener('click', function() {
+      newobj.value++
+    })
+  </script>
+</body>
+</html>
