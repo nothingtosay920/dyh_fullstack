@@ -1,34 +1,41 @@
 let b = {
-    name: '宜豪'
-}
-
-function a(e, r) {
+    name: '宜豪',
+  }
+  function a(e, r) {
+    this.sex = 'boy'
     console.log(e + r);
     console.log(this.name);
-}
-
-
-a.bind(b, 4, 5)()
-
-Function.prototype.myBind() = function (thisArg) {
+  }
+  
+  Function.prototype.mybind = function(thisArg) {
     if (typeof this !== 'function') {
-        throw new TypeError('Error')
+      throw new TypeError('Error')
     }
-    const args = [...arguments].slice(1) // ['b', '1', '2']
+    // console.log(thisArg);
+    const args = [...arguments].slice(1) // [4, 5] 
     const self = this
-    const nop = function () {}
-    // 绑定函数的操作
-    const bound = function () {
-        return self.apply(
-            this instanceof nop ? this : thisArg ,
-            args
-        )
+    const nop = function() {}
+    // const fn = Array.prototype.shift.call(arguments);
+    // 绑定函数
+    const bound = function() {
+      // console.log(arguments);
+    //   console.log('this is ' + this);
+      return self.apply(  // this.sex = 'boy'
+        this instanceof nop ? this : thisArg,
+        args
+      )
     }
+    
     if (this.prototype) {
-        nop.prototype = this.prototype
+      nop.prototype = this.prototype
     }
     bound.prototype = new nop()
-    const fn = Symbol('fn') // 防止fn这个单词被占用
-    // 把 this 代表的所拥有的参数先取到
-
-}
+    // console.log(bound.prototype, '-----');
+    
+    return bound
+  }
+  
+  
+  let res = a.mybind(b, 4, 5)
+  let newA = new res()
+  console.log(newA);

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div id="wrapper">
+      <button id="btn"></button>
+    </div>
+  </div>
+</body>
+<script>
+  let wrapper = document.getElementById('wrapper')
+  let btn = document.getElementById('btn')
+  wrapper.addEventListener('click', function() {
+    console.log('wrapper');
+  })
+  btn.addEventListener('click', function() {
+    console.log('btn');
+    // event.stopPropagation() 阻止事件进一步传播
+    event.stopImmediatePropagation() // 还能阻止同类型事件注册
+  })
+</script>
+</html>

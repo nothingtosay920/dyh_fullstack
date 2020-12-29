@@ -1,24 +1,29 @@
 const PENDING = 'pending'
-const RESLOVED = 'resolved'
+const RESOLVED = 'resolved'
 const REJECTED = 'rejected'
 
 function MyPromise(fn) {
   const that = this
-  that.state = PENDING // 记录状态
-  that.value = null  // 保存resolve 或 reject传入的值
-  that.resolvedCallbacks = [] // 装入 .then 的回调
+  that.state = PENDING
+  that.value = null
+  that.resolvedCallbacks = []
   that.rejectedCallbacks = []
+  try {
+    fn(resolve, reject)
+  } catch (error) {
+    reject(error)
+  }
 
   function resolve(value) {
     if (that.state === PENDING) {
-      that.state = RESLOVED
+      that.state = RESOLVED
       that.value = value
       that.resolvedCallbacks.map(cb => {
         cb(that.value)
       })
     }
   }
-
+  
   function reject(value) {
     if (that.state === PENDING) {
       that.state = REJECTED
@@ -28,35 +33,26 @@ function MyPromise(fn) {
       })
     }
   }
-
-  try {
-    fn(resolve, reject)
-  } catch(error) {
-    reject(error)
-  }
 }
+
+
 
 MyPromise.prototype.then = function (onFulfilled, onRejected) {
   const that = this
   onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v
-  onRejected = typeof onRejected === 'function' ? onFulfilled : r => { throw r }
+  onRejected = typeof onRejected === 'function' ? onRejected : r => { throw r }
 
-  if ( that.state === PENDING ) {
+  if (that === PENDING) {
     that.resolvedCallbacks.push(onFulfilled)
+    that.rejectedCallbacks.push(onRejected)
   }
-
-  if (that.state === RESLOVED) {
+  if (that.state === RESOLVED) {
     onFulfilled(that.value)
   }
-  if ( that.state === PENDING ) {
-    that.resolvedCallbacks.push(onRejected)
-  }
-
   if (that.state === REJECTED) {
     onRejected(that.value)
   }
 }
-
 
 
 

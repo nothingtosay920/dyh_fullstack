@@ -15,4 +15,3 @@ Function.prototype.myCall = function (thisArg) {
     delete thisArg[fn]
     return result
 }
-

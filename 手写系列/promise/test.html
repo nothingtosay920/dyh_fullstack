@@ -1,0 +1,13 @@
+<script>
+  function a() {
+  return new Promise((resolve, reject) => {
+    resolve('foo')
+  })
+}
+console.log(a().then(() => {
+}));
+a().then((res) => {
+}).then(() => {
+  console.log(1);
+})
+</script>
