@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+  <style>
+    .infinite-list-container {
+  height: 100%;
+  overflow: auto;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+.infinite-list-phantom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.infinite-list {
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+  text-align: center;
+}
+
+.infinite-list-item {
+  padding: 10px;
+  color: #555;
+  box-sizing: border-box;
+  border-bottom: 1px solid #999;
+}
+  </style>
+</head>
+<body>
+  <div class="infinite-list-container" id="app" @scroll="scrollEvent($event)">
+    <!-- 撑开可视区域 -->
+    <div class="infinite-list-phantom" :style="{height: listHeight + 'px'}"></div>
+    <!-- 渲染列表 -->
+    <div class="infinite-list" :style="{transfrom: getTransform}">
+      <div class="infinite-list-item" v-for="item in visibleData" :key='item.id' :style="{height: itemSize + 'px', lineHeight: itemSize + 'px'}">
+        {{item.value}}
+      </div>
+    </div>
+  </div>
+  <ul id="container"></ul>
+</body>
+<script >    
+  let listData = [], itemSize = 200
+  for (let i = 0; i < 1000; i++) {
+    listData.push({value: i, id: i})    
+  }
+  new Vue( {
+    el: '#app',
+    name: 'list',
+    data () {
+      return {
+        listData: listData,
+        itemSize: 200,
+        sizeHeight: 0, // 可视区高度
+        startOffset: 0, // 偏移量
+        start: 0,
+        end: null
+      }
+    },
+    mounted() {
+      this.screenHeight = this.$el.clientHeight
+      this.end = this.start + this.visibleCount
+    },
+    computed: {
+      visibleCount() { // 可显示的列表项数
+        return Math.ceil( this.screenHeight / this.itemSize )
+      },
+      listHeight() { // 列表的总高度
+        return this.listData.length * this.itemSize
+      },
+      visibleData() { // 真实展示的列表数据
+        return this.listData.slice(this.start, Math.min(this.end, this.listData.length))
+      },
+      getTransform() {
+        return `translate3d(0, ${-this.startOffset}px, 0)`
+      }
+    },
+    methods: {
+      scrollEvent() {
+        let scrollTop = this.$refs.list.scrollTop
+        this.start = Math.floor(scrollTop / this.itemSize)
+        this.end = this.start + this.visibleCount
+        this.startOffset = scrollTop - (scrollTop % this.itemSize)
+      }
+    }
+  })
+</script>
+</html>

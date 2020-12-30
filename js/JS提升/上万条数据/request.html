@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul id="container"></ul>
+  
+</body>
+<script>
+  let ul = document.getElementById('container')
+  let now = Date.now()
+  const total = 100000
+  let once = 20
+  let page = total / once
+  let index = 0 
+
+  function loop (curTotal, curIndex) {
+    if (curTotal <= 0) {
+      return false
+    }
+    // 每页渲染的
+    let pageCount = Math.min(curTotal, once)
+    window.requestAnimationFrame(() => {
+      let fragment = document.createDocumentFragment() // 创建文档片段
+      for (let i = 0; i < pageCount; i++) {
+        // DocumentFragment
+        let li = document.createElement('li')
+        li.innerHTML = ~~(Math.random() * total)
+        fragment.appendChild(li)
+      }
+    })
+    ul.appendChild(fragment)
+    loop(curTotal - pageCount, curIndex + pageCount)
+  }
+
+  loop(total, index)
+</script>
+</html>

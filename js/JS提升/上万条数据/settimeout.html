@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul id="container"></ul>
+</body>
+<script>
+  let ul = document.getElementById('container')
+  let now = Date.now()
+  const total = 100000
+  let once = 20
+  let page = total / once
+  let index = 0 
+
+  function loop (curTotal, curIndex) {
+    if (curTotal <= 0) {
+      return false
+    }
+    // 每页渲染的
+    let pageCount = Math.min(curTotal, once)
+    setTimeout(() => {
+      for (let i = 0; i < pageCount; i++) {
+        let li = document.createElement('li')
+        li.innerHTML = ~~(Math.random() * total)
+        ul.appendChild(li)
+      }
+    }, 0)
+    loop(curTotal - pageCount, curIndex + pageCount)
+  }
+
+  loop(total, index)
+
+  
+  // console.log('运行时间:', Date.now() - now);
+  // setTimeout(() => {
+  //   console.log('总运行时间:', Date.now() - now);
+  // }, 0)
+</script>
+</html>
