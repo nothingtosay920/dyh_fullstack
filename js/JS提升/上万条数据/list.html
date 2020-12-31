@@ -10,7 +10,6 @@
   height: 100%;
   overflow: auto;
   position: relative;
-  -webkit-overflow-scrolling: touch;
 }
 
 .infinite-list-phantom {
@@ -38,60 +37,74 @@
   </style>
 </head>
 <body>
-  <div class="infinite-list-container" id="app" @scroll="scrollEvent($event)">
-    <!-- 撑开可视区域 -->
-    <div class="infinite-list-phantom" :style="{height: listHeight + 'px'}"></div>
-    <!-- 渲染列表 -->
-    <div class="infinite-list" :style="{transfrom: getTransform}">
-      <div class="infinite-list-item" v-for="item in visibleData" :key='item.id' :style="{height: itemSize + 'px', lineHeight: itemSize + 'px'}">
-        {{item.value}}
+  <div id="app">
+    <div ref="list" class="infinite-list-container" >
+      <div class="infinite-list-phantom" :style="{ height: listHeight + 'px' }" @scroll="scrollEvent($event)"></div>
+      <div class="infinite-list" :style="{ transform: getTransform }" >
+        <div ref="items"
+          class="infinite-list-item" 
+          v-for="item in visibleData" 
+          :key="item.id"
+          :style="{ height: itemSize + 'px',lineHeight: itemSize + 'px' }"
+        >{{ item.value }}</div>
       </div>
     </div>
   </div>
-  <ul id="container"></ul>
 </body>
 <script >    
   let listData = [], itemSize = 200
   for (let i = 0; i < 1000; i++) {
-    listData.push({value: i, id: i})    
+    listData.push({id: i, value: i })    
   }
   new Vue( {
     el: '#app',
-    name: 'list',
+    name: 'VirtualList',
     data () {
       return {
-        listData: listData,
-        itemSize: 200,
-        sizeHeight: 0, // 可视区高度
-        startOffset: 0, // 偏移量
-        start: 0,
-        end: null
+      itemSize: itemSize,
+      listData: listData,
+        //可视区域高度
+      screenHeight:0,
+      //偏移量
+      startOffset:0,
+      //起始索引
+      start:0,
+      //结束索引
+      end:null,
       }
     },
     mounted() {
-      this.screenHeight = this.$el.clientHeight
-      this.end = this.start + this.visibleCount
+    this.screenHeight = window.screen.availHeight;
+    this.end = this.start + this.visibleCount;
+  },
+    computed:{
+    //列表总高度
+    listHeight(){
+      return this.listData.length * this.itemSize;
     },
-    computed: {
-      visibleCount() { // 可显示的列表项数
-        return Math.ceil( this.screenHeight / this.itemSize )
-      },
-      listHeight() { // 列表的总高度
-        return this.listData.length * this.itemSize
-      },
-      visibleData() { // 真实展示的列表数据
-        return this.listData.slice(this.start, Math.min(this.end, this.listData.length))
-      },
-      getTransform() {
-        return `translate3d(0, ${-this.startOffset}px, 0)`
-      }
+    //可显示的列表项数
+    visibleCount(){
+      return Math.ceil(this.screenHeight / this.itemSize)
     },
+    //偏移量对应的style
+    getTransform(){
+      return `translate3d(0,${this.startOffset}px,0)`;
+    },
+    //获取真实显示列表数据
+    visibleData(){
+      return this.listData.slice(this.start, Math.min(this.end,this.listData.length));
+    }
+  },
     methods: {
       scrollEvent() {
-        let scrollTop = this.$refs.list.scrollTop
-        this.start = Math.floor(scrollTop / this.itemSize)
-        this.end = this.start + this.visibleCount
-        this.startOffset = scrollTop - (scrollTop % this.itemSize)
+        //当前滚动位置
+      let scrollTop = this.$refs.list.scrollTop;
+      //此时的开始索引
+      this.start = Math.floor(scrollTop / this.itemSize);
+      //此时的结束索引
+      this.end = this.start + this.visibleCount;
+      //此时的偏移量
+      this.startOffset = scrollTop - (scrollTop % this.itemSize);
       }
     }
   })
