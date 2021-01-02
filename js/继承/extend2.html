@@ -1,0 +1,15 @@
+<script>
+  // 构造函数继承
+
+  function Parent(name) {
+    this.names = ['jiushen', 'ceo']
+  }
+
+  function Child(name) {
+    Parent.call(this, name)
+  }
+// let child1 = new Child()
+// let child2 = new Child()
+let a = new  Child()
+console.log(a);
+</script>

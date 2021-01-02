@@ -1,0 +1,23 @@
+<script>
+  // 寄生式继承 (创建一个封装继承的函数)
+
+  function createObj(o) {
+    let clone = Object.create(o)
+    clone.sayName = function() {
+      console.log('hi');
+    }
+    return clone
+  }
+
+  let person = {
+    name: 'jiushen',
+    friends: ['ceo', 'cong']
+  }
+
+  let person1 = createObj(person)
+  let person2 = createObj(person)
+
+  person1.friends.push('zhou')
+  console.log(person1);
+  console.log(person2.friends);
+</script>
