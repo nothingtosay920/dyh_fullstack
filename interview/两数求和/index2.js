@@ -19,7 +19,7 @@ var threeSum = function(nums) {
       while(L < R){
           const sum = nums[i] + nums[L] + nums[R];
           if(sum == 0){
-              ans.push([nums[i],nums[L],nums[R]]);
+              res.push([nums[i],nums[L],nums[R]]);
               while (L<R && nums[L] == nums[L+1]) L++; // 去重
               while (L<R && nums[R] == nums[R-1]) R--; // 去重
               L++;
@@ -33,3 +33,5 @@ var threeSum = function(nums) {
 };
 
 // 有序数组 对撞指针
+
+
