@@ -2,7 +2,6 @@
 // 数组中数字出现的次数 2
 // 136 137 260 位运算 异或
 
-// 呵呵 不是位运算
 var singleNumber = function(nums) {
   let set = new Set(nums)
   function sum (nums) {
@@ -17,7 +16,6 @@ var singleNumber = function(nums) {
 
 // https://leetcode-cn.com/problems/single-number-ii/solution/single-number-ii-mo-ni-san-jin-zhi-fa-by-jin407891/
 
-// 弟弟
 var singleNumber = function(nums) {
   let set = new Set(nums)
   for (let i of set) {
