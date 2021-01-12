@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <router-view class="router-view" v-slot="{Component}">
+    <router-view class="router-view" v-slot="{ Component }">
       <transition :name="transitionName">
-        <component :is="Component" />
+        <component :is="Component"></component>
       </transition>
     </router-view>
   </div>
@@ -11,8 +11,8 @@
 <script>
 import { reactive, toRefs } from 'vue'
 export default {
-  setup () {
-    const state = ({
+  setup() {
+    const state = reactive({
       transitionName: 'slide-left'
     })
 
@@ -20,9 +20,9 @@ export default {
       ...toRefs(state)
     }
   }
-  
 }
 </script>
+
 <style lang="less">
 html, body {
   height: 100%;
@@ -78,4 +78,5 @@ html, body {
 .van-badge--fixed {
   z-index: 1000;
 }
+
 </style>

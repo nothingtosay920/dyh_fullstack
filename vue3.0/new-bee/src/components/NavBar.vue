@@ -6,7 +6,7 @@
         <span>首页</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="category">
-        <i class="iconfont icon-icon04"></i>
+        <i class="iconfont icon-leimupinleifenleileibie2"></i>
         <span>分类</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="cart">
@@ -14,11 +14,12 @@
         <span>购物车</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="user">
-        <i class="iconfont icon-weibiaoti2fuzhi12"></i>
+        <i class="iconfont icon-wodedangxuan"></i>
         <span>我的</span>
       </router-link>
     </ul>
   </div>
+
 </template>
 
 <script>

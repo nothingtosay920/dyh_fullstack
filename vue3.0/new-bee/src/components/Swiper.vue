@@ -11,12 +11,13 @@ export default {
   props: {
     list: Array
   },
-  setup (props) {
-    function goTo(url) {
+  setup(props) {
+    function goto(url) {
       window.open(url)
     }
+
     return {
-      goTo
+      goto
     }
   }
 }
