@@ -1,18 +1,15 @@
 <template>
   <div class="create-order">
-    <Header :name="'生成订单'"></Header>
+    <s-header :name="'生成订单'"></s-header>
     <!-- 地址 -->
     <div class="address-wrap">
       <div class="name" @click="goTo">
-        <span> </span> 
-        <!-- {{ address.userName }} -->
-        <span></span>
-        <!-- {{ address.userPhone }} -->
+        <span>{{address.userName}}</span>
+        <span>{{address.userPhone}}</span>
       </div>
       <div class="address">
+        {{address.provinceName}} {{address.cityName}} {{address.regionName}} {{address.detailAddress}}
       </div>
-        <!-- {{ address.provinceName }} {{ address.cityName }} {{ address.regionName }} {{ address.detailAddress }} -->
-
       <van-icon class="arrow" name="arrow" />
     </div>
     <!-- 列表 -->
@@ -30,51 +27,121 @@
         </div>
       </div>
     </div>
+    <!-- 生成订单 -->
+    <div class="pay-wrap">
+      <div class="price">
+        <span>商品金额</span>
+        <span>¥ {{total}}</span>
+      </div>
+      <van-button @click="handleCreateOrder" class="pay-btn" color="#1baeae" type="primary">生成订单</van-button>
+    </div>
+
+    <van-popup
+      closeable
+      :close-on-click-overlay="false"
+      v-model:show="showPay"
+      position="bottom"
+      :style="{ height: '30%' }"
+      @close="close"
+    >
+      <div :style="{ width: '90%', margin: '0 auto', padding: '50px 0' }">
+        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="handlePayOrder(1)">支付宝支付</van-button>
+        <van-button color="#4fc08d" block @click="handlePayOrder(2)">微信支付</van-button>
+      </div>
+    </van-popup>
   </div>
 </template>
 
 <script>
-import Header from "@/components/SimpleHeader.vue";
-import { onMounted, reactive, toRefs } from 'vue';
-import { Toast } from 'vant';
-import { useRoute } from 'vue-router'
-import { getByCartItemIds } from '@/service/cart'
-import { getAddressDetail } from '@/service/address'
+import sHeader from '@/components/SimpleHeader'
+import { computed, onMounted, reactive, toRefs } from 'vue'
+import { Toast } from 'vant'
+import { useRoute, useRouter } from 'vue-router'
+import { getByCartItemIds } from '@/service/cart.js'
+import { getAddressDetail, getDefaultAddress } from '@/service/address.js'
+import { setLocal, getLocal } from '@/common/js/utils.js'
+import { createOrder, payOrder } from '@/service/order.js';
 export default {
   components: {
-    Header
+    sHeader
   },
-  setup () {
+  setup() {
     const route = useRoute()
+    const router = useRouter()
     const state = reactive({
-      cartList: []
+      cartList: [],
+      cartItemId: [],
+      address:  {},
+      showPay: false,
+      orderNo: '' // 订单编号
     })
 
     onMounted(() => {
       init()
     })
+    const init = async () => {
+      Toast.loading({ message: '加载中...', forbidClick: true });
+      const { cartItemId, addressId } = route.query
+      const _cartItemId = cartItemId ? JSON.parse(cartItemId) : JSON.parse(getLocal('cartItemId'))
+      setLocal('cartItemId', JSON.stringify(_cartItemId))
+      // 请求用户地址
+      const { data: address } = addressId ? await getAddressDetail(addressId) : await getDefaultAddress()
+      if (!address) {
+        router.push({ path: '/address' })
+        return
+      }
+      state.address = address
+      console.log(address);
+      // 请求要购买的商品数据
+      const { data: list } = await getByCartItemIds({ cartItemIds: _cartItemId.join(',')})
+      state.cartList = list
+      Toast.clear()
+    }
 
-    const init = async() => {
-      Toast.loading({
-        message: '加载中',
-        forbidClick: true
+    const goTo = () => {
+      router.push({ path: '/address', query: { cartItemId: JSON.stringify(state.cartItemId), from: 'create-order' }})
+    }
+
+    // 合计
+    const total = computed(() => {
+      let sum = 0
+      state.cartList.forEach(item => {
+        sum += item.goodsCount * item.sellingPrice
       })
-      // 请求要购买的商品数据
-      const { cartItemId, addressId } =  route.query
-      const _cartItemId = JSON.parse(cartItemId)
-      // 请求地址 且 无地址不展示
-      await getAddressDetail(addressId)
-      // 请求要购买的商品数据
-     const { data: list } =  await getByCartItemIds({ cartItemIds : _cartItemId.join(',')})
-     state.cartList = list
-     Toast.clear()
+      return sum
+    })
+    
+    // 生成订单
+    const handleCreateOrder = async () => {
+      const params = {
+        addressId: state.address.addressId,
+        cartItemIds: state.cartList.map(item => item.cartItemId)
+      }
+      // 调用接口
+      const { data } = await createOrder(params)
+      setLocal('cartItemId', '')
+      console.log(data);
+      state.orderNo = data
+      state.showPay = true
+    }
+    
+    // 支付
+    const handlePayOrder = async (type) => {
+      await payOrder({ orderNo: state.orderNo, payType: type})
+      Toast.success('支付成功')
+      setTimeout(() => {
+        router.push({ path: '/order' })
+      }, 2000)
     }
 
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      goTo,
+      total,
+      handleCreateOrder,
+      handlePayOrder
     }
-  },
-  
+  }
 }
 </script>
 
@@ -114,6 +181,7 @@ export default {
     }
     .good {
       margin-bottom: 120px;
+      padding-bottom: 106px;
     }
     .good-item {
       padding: 10px;

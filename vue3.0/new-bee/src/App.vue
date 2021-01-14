@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <router-view class="router-view" v-slot="{ Component }">
+    <router-view class="router-view" v-slot="{Component}">
       <transition :name="transitionName">
-        <component :is="Component"></component>
+        <component :is="Component" />
       </transition>
     </router-view>
   </div>
@@ -78,5 +78,4 @@ html, body {
 .van-badge--fixed {
   z-index: 1000;
 }
-
 </style>

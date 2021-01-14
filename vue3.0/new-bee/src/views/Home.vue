@@ -1,26 +1,28 @@
 <template>
   <header class="home-header wrap" :class="{ active: headerScroll }">
-    <router-link tag="i" to="/categary">
-      <i class="iconfont icon-fenleicaidan"></i>
+    <router-link to="/category">
+      <i class="iconfont icon-entypomenu"></i>
     </router-link>
 
     <div class="header-search">
       <span class="app-name">新蜂商城</span>
-      <i class="iconfont icon--search"></i>
-      <router-link tag="span" class="search-title" to="./product-list?from=home"
+      <i class="iconfont icon-search"></i>
+      <router-link
+        tag="span"
+        class="search-title"
+        to="./product-list?from=home"
         >山河无恙，人间皆安</router-link
       >
     </div>
-    <router-link class="login" tag="span" to="./login" v-if="!isLogin"
-      >登录</router-link
-    >
+
+    <router-link class="login" tag="span" to="./login" v-if="!isLogin">登录</router-link>
     <router-link class="login" tag="span" to="./user" v-else>
       <van-icon name="manager-o" />
     </router-link>
   </header>
-  <NavBar></NavBar>
+  <navBar />
   <!-- 轮播 -->
-  <Swiper :list="swiperList"></Swiper>
+  <swiper :list="swiperList"></swiper>
   <!-- 分类列表 -->
   <div class="category-list">
     <div v-for="item in categoryList" :key="item.categoryId">
@@ -28,38 +30,36 @@
       <span>{{ item.name }}</span>
     </div>
   </div>
-  <!-- 商品列表 -->
-  <GoodsList :title="'新品上线'" :goods="newGoodsList"></GoodsList>
+  <!-- 新品上线 -->
+  <goods-list :title="'新品上线'" :goods="newGoodses"></goods-list>
   <!-- 热门商品 -->
-  <GoodsList :title="'热门商品'" :goods="hotGoodses"></GoodsList>
+  <goods-list :title="'热门商品'" :goods="hotGoodses"></goods-list>
   <!-- 最新推荐 -->
-  <GoodsList
+  <goods-list
     :style="{ paddingBottom: '100px' }"
     :title="'最新推荐'"
     :goods="recommendGoodses"
-  ></GoodsList>
+  ></goods-list>
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
-import Swiper from "@/components/Swiper.vue";
-import GoodsList from "@/components/GoodsList.vue";
-import { Toast } from "vant";
-import { getHome } from "@/service/home.js";
+import navBar from "@/components/NavBar";
+import swiper from "@/components/Swiper";
 import { onMounted, reactive, toRefs, nextTick } from "vue";
-import { getLocal } from '@/common/js/util'
-
-
+import { getHome } from "@/service/home";
+import { Toast } from "vant";
+import goodsList from "@/components/GoodsList";
+import { getLocal } from  '@/common/js/utils'
 export default {
   name: "home",
   components: {
-    NavBar,
-    Swiper,
-    GoodsList,
+    navBar,
+    swiper,
+    goodsList,
   },
   setup() {
     const state = reactive({
-      swiperList: [], // 轮播图
+      swiperList: [], // 轮播图列表
       categoryList: [
         {
           name: "新蜂超市",
@@ -113,36 +113,36 @@ export default {
           categoryId: 100010,
         },
       ],
-      newGoodsList: [], // 新品上线
+      headerScroll: false, // 滚动透明判断
+      newGoodses: [], // 新品上线
       hotGoodses: [], // 热门商品
       recommendGoodses: [], // 最新推荐
-      headerScroll: false, // 滚动透明判断
       isLogin: false
     });
 
     onMounted(async () => {
       const token = getLocal('token')
-      // console.log(token);
-      if(token) {
+      if (token) {
         state.isLogin = true
       }
       Toast.loading({
-        message: "加载中",
-        fobidClick: true,
+        message: "加载中...",
+        forbidClick: true,
       });
       const { data } = await getHome();
       console.log(data);
       state.swiperList = data.carousels;
-      state.newGoodsList = data.newGoodses;
+      state.newGoodses = data.newGoodses;
       state.hotGoodses = data.hotGoodses;
       state.recommendGoodses = data.recommendGoodses;
       Toast.clear();
     });
 
-
- // 滚动页面事件
-    nextTick(() => { // 保证页面渲染完成才会执行
+    // 滚动页面事件
+    nextTick(() => {
+      // 保证页面渲染完成才会执行
       window.addEventListener("scroll", () => {
+        // console.log(123);
         let scrollTop =
           window.pageYOffset ||
           document.documentElement.scrollTop ||
@@ -150,18 +150,17 @@ export default {
         scrollTop > 100
           ? (state.headerScroll = true)
           : (state.headerScroll = false);
-      },true)
-    })
-
+      });
+    });
 
     return {
-      ...toRefs(state)
+      ...toRefs(state),
     };
   },
 };
 </script>
 
-<style lang="less" scoped >
+<style lang="less" scoped>
 @import "../common/style/mixin";
 .home-header {
   position: fixed;
@@ -175,13 +174,13 @@ export default {
   font-size: 15px;
   color: #fff;
   z-index: 10000;
-  .icon-fenleicaidan {
+  .icon-entypomenu {
     color: @primary;
     font-size: 22px;
   }
   &.active {
     background: @primary;
-    .nbmenu2 {
+    .icon-entypomenu {
       color: #fff;
     }
     .login {
@@ -245,7 +244,6 @@ export default {
     }
   }
 }
-
 .floor-list {
   width: 100%;
   padding-bottom: 50px;

@@ -1,12 +1,12 @@
 <template>
   <div class="good">
-    <header class="good-header">{{title}}</header>
+    <header class="good-header">{{myTitle}}</header>
     <div class="good-box">
-      <div class="good-item" v-for="item in goods" :key="item.goodsId" @click="gotoDetail(item)">
+      <div class="good-item" v-for="item in goods" :key="item.goodsId" @click="goToDetail(item)">
         <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
-        <div class="good-desc" >
+        <div class="good-desc">
           <div class="title">{{item.goodsName}}</div>
-          <div class="price">￥{{item.SellingPrice}}</div>
+          <div class="price">¥ {{item.sellingPrice}}</div>
         </div>
       </div>
     </div>
@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { reactive, ref, toRefs } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, reactive, toRefs } from 'vue'
+import { useRouter } from 'vue-router' 
 export default {
   props: {
     title: {
@@ -30,28 +30,26 @@ export default {
     }
   },
   setup(props) {
-    console.log(props);
-    const title = ref(props.title)
-    const goodsList = reactive({
+    const router = useRouter()
+    const myTitle = ref(props.title)
+    const goosList = reactive({
       goods: props.goods
     })
 
-    const router = useRouter()
-
-    const gotoDetail = (item) => {
-      router.push({path: `/product/${item.goodsId}`})
+    const goToDetail = (item) => {
+      router.push({ path: `/product/${item.goodsId}` })
     }
-
+    // console.log(props);
     return {
-      title,
-      ...toRefs(goodsList),
-      gotoDetail
+      myTitle,
+      ...toRefs(goosList),
+      goToDetail
     }
   }
 }
 </script>
 
-<style lang="less" scoped >
+<style lang="less" scoped>
 @import "../common/style/mixin";
 .good {
   .good-header {

@@ -12,12 +12,12 @@ export default {
     list: Array
   },
   setup(props) {
-    function goto(url) {
+    function goTo(url) {
       window.open(url)
     }
 
     return {
-      goto
+      goTo
     }
   }
 }

@@ -6,16 +6,17 @@ export default createStore({
     cartCount: 0
   },
   mutations: {
-    addCart(state,payload) {
+    addCart (state, payload) {
       state.cartCount = payload.count
     }
   },
   actions: {
-    async updateCart(ctx,params) {
-    const { data } = await getCart()
-    ctx.commit('addCart', {
-      count: data.length || 0
-    })
+    async updateCart (ctx) {
+      const { data } = await getCart()
+      // console.log(data);
+      ctx.commit('addCart', {
+        count: data.length || 0
+      })
     }
   },
   modules: {
