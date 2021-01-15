@@ -1,0 +1,1 @@
+[ [1, 2, 3].reduce(Math.pow), [].reduce(Math.pow)]
