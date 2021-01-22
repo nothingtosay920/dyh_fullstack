@@ -23,3 +23,8 @@ RPC 是 服务器和服务器通信
   RPC  二进制协议(更小的数据包体积 更快的编码速率)
 
 # RPC 调用 Buffer编码解码二进制数据包
+
+
+protocol buffer
+
+# RPC调用 net建立多路复用的RPC通道

@@ -1,0 +1,15 @@
+{
+  "name": "RPC",
+  "version": "1.0.0",
+  "description": "Remote Produre Call 远程过程调用\r 和 Ajax 有什么相同点\r ajax 是 电脑和服务器之间通信\r RPC 是 服务器和服务器通信\r 1. 都是两个计算机之间的通信\r 2. 需要双方约定一个数据格式",
+  "main": "buffer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "protocol-buffers": "^4.2.0"
+  }
+}
