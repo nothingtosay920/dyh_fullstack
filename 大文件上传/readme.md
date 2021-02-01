@@ -9,4 +9,5 @@ Blob.prototype.slice 将大文件切片返回
   - 什么时候合并 所有的切片传输完成
   - 怎么合并 
 
+  - 处理前端传过来的formData (multiparty)
 # 断点续传
