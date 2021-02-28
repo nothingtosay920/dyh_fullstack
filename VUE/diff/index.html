@@ -10,22 +10,36 @@
 <body>
   <div id="app">
     <ul>
-      <li v-for="item in 6">{{item}}</li>
+      <li v-for="(item, index) in list" :key="index">{{item}}</li>
     </ul>
   </div>
 </body>
 <script>
   let app = new Vue({
-    el: '#app'
+    el: '#app',
+    data () {
+      
+    }
   })
 
-  // {
-  //   target: 'ul',
-  //   children: [
-  //     { target: 'li', children: [{ vnode: { text: '1' }}]},
-  //     { target: 'li', children: [{ vnode: { text: '2' }}]},
+  // 响应式数据更新
+  // 触发 Watcher 观察者里面的回调 vm.update 函数 去通知页面更新
+  // 这个过程vm.render() 生成新的vnode的
+  // vm.update 就会带着新的 vnode 去触发 __path__过程 (虚拟dom和真实dom比较)
 
-  //   ]
-  // }
+  vn = {
+    target: 'ul',
+    children: [
+      { target: 'li', children: [{ vnode: { text: '1' }}]},
+      { target: 'li', children: [{ vnode: { text: '2' }}]},
+
+    ]
+  }
+
+  // __path__过程:
+  // 1. 对比新旧节点是否是相同的节点(isSameNode)
+  //   - isSameNode = false 不是相同节点 直接销毁旧的vnode 渲染新的vnode
+  //   - 如果节点相同 要尽可能的做节点的复用
+  //   - 如果新vnode是文字vnode 就直接调用浏览器的api 替换文字
 </script>
 </html>
