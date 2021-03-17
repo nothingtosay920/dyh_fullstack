@@ -36,7 +36,7 @@ export default {
       if (this.username.trim() === "" || this.userpwd.trim() === "") {
         this.$toast('账号或密码不能为空')
         return
-      }
+      } 
       // 发接口请求
       this.$http({
         method: 'post',
