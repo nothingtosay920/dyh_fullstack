@@ -41,5 +41,22 @@
   //   - isSameNode = false 不是相同节点 直接销毁旧的vnode 渲染新的vnode
   //   - 如果节点相同 要尽可能的做节点的复用
   //   - 如果新vnode是文字vnode 就直接调用浏览器的api 替换文字
+
+  // diff核心比较
+  let oldStartIdx = 0 // 旧首节点
+  let newStartIdx = 0 // 新首节点
+
+  let oldEndIdx = oldCh.length - 1 // 旧尾节点
+  let newEndIdx = newCh.length - 1 // 新尾节点
+
+  function sameVnode(a, b) {
+    return (
+      a.key === b.key && (
+        a.tag === b.tag && a.isComment === b.isComment &&
+        isDef(a.data) === isDef(b.data) &&
+        sameInputType(a, b)
+      )
+    )
+  }
 </script>
 </html>
