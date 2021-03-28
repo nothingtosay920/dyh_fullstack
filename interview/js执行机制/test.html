@@ -1,0 +1,11 @@
+<script>
+  function once(func) {
+    var tag = true
+    return function () {
+      if (tag == true) {
+        func.apply(null, arguments)
+        tag = false
+      }
+    }
+  }
+</script>

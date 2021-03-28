@@ -1,0 +1,11 @@
+<script>
+  const a = {
+    b: function () {
+      function c () {
+        console.log(this);
+      }
+      c()
+    }
+  }
+  a.b()
+</script>
