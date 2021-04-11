@@ -1,23 +1,6 @@
 <script>
-  const a = {
-    b: () => {
-      console.log('this1',this);
-    }
-  }
-
-  const c  = {
-    d: () => {
-      console.log('this2',this);
-    },
-    f: function () {
-      console.log(123);
-    }
-  }
-
-  const e = () => {
-    console.log('this3', this);
-  }
-  a.b()
-  c.d()
-  e()
+  const a = {}
+  console.log(a[null]);
+  // console.log(undefined[1]);
+  console.log(Object(undefined)[1]);
 </script>
