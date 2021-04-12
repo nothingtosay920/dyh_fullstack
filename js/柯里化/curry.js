@@ -8,12 +8,11 @@ function sub_curry(fn) {
 
 function curry(fn, length) {
   length = length || fn.length;
-  console.log(fn);
   let slice = Array.prototype.slice;
   return function() {
     if (arguments.length < length) {
       let combined = [fn].concat(slice.call(arguments))
-      console.log(combined);
+      // console.log(combined);
       return curry(sub_curry.apply(this, combined), length - arguments.length)
     } else {
       return fn.apply(this, arguments)
@@ -24,9 +23,9 @@ function curry(fn, length) {
 let test = curry(function(a, b, c) {
   return [a, b, c]
 })
-console.log(test('a', 'b', 'c'));
+// console.log(test('a', 'b', 'c'));
 console.log(test('a')('b')('c'));
-console.log(test('a', 'b')('c'));
+// console.log(test('a', 'b')('c'));
 
 
 // function add(a, b) {

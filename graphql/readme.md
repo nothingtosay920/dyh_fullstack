@@ -17,3 +17,4 @@ db.json 资源中心
     graphqlHTTP playground
   3. scehma hero + rootValue
   4. graphql 可以省去很多请求浪费
+  5. 前端可以决定用哪些字段
