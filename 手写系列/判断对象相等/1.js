@@ -49,8 +49,8 @@ function deepEq(a, b, aStack, bStack) {
     case '[object String]':
       return '' + a === '' + b;
     case '[object Number]':
-      if (+a !== +a) return +b !== +b; 
-      return +a === 0 ? 1 / +a === 1 / b : +a === +b
+      if (+a !== +a) return +b !== +b;  // NaN
+      return +a === 0 ? 1 / +a === 1 / b : +a === +b // +0 -0
     case '[object Date]':
     case '[object Boolean]':
       return +a === +b

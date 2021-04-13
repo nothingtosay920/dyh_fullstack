@@ -27,6 +27,13 @@ function deepClone(source){
   return targetObj;
 }
 
+const a = {
+  b: 1,
+  c: {
+    d: 2
+  }
+}
+console.log(deepClone(a));
 
 // concat 不会修改原数组 返回一个新数组 concat 只是对数组的第一层进行深拷贝
 // slice 同上

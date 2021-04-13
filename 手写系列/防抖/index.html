@@ -9,16 +9,15 @@
     <div class="app">
         <button id="btn">click</button>
     </div>
-    <script src="./index.html"></script>
+    <script src="./index.js"></script>
     <script>
         let btn = document.getElementById('btn')
         
-        btn.addEventListener('click', debounce(show, 1000)
+        btn.addEventListener('click', debounce(show, 1000)(1,2)
         )
         function show() {
-            setTimeout(()=> {
-                console.log('hello');
-            }, 2000)
+            console.log(arguments);
+          console.log('hello');
         }
     </script>
 </body>
