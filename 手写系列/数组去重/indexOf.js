@@ -14,7 +14,7 @@ let array = [1, 2, 3, 1, '1', '1']
 
 function unique(arr) {
   let res = []
-  let sortedArr = arr.sort() 
+  let sortedArr = arr.sort((a, b) => a - b) 
   let seen
   for (let i = 0; i < sortedArr.length; i++) {
     // 判断第一个元素或者相邻的元素不相同
