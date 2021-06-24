@@ -12,11 +12,6 @@ Person.prototype.say = function() {
   // person.say()
   
   
-  
-  
-  
-  
-  
   function myNew() {
     let obj = {}
     // 取到外部传入的构造器

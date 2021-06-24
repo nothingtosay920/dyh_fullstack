@@ -18,20 +18,20 @@
   <div id="routeView"></div>
 
   <script>
-    let routeView = document.getElementById('routeView')  
     window.addEventListener('DOMContentLoaded', onload)
 
     window.addEventListener('popstate', () => {
       routeView.innerHTML = location.pathname
     })
-
     function onload () {
+    let routeView = document.getElementById('routeView')  
       routeView.innerHTML = location.pathname
-      let linklist = document.querySelectorAll('a[href]')
+      let linklist = document.querySelectorAll('ul li a')
       linklist.forEach(el => el.addEventListener('click', function(e) {
         e.preventDefault()
-        history.pushState(null, '',el.getAttribute('href') )
+        history.pushState(null, '', el.getAttribute('href'))
         routeView.innerHTML = location.pathname
+        console.log(location.pathname);
       }))
     }
   </script>

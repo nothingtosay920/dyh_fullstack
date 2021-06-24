@@ -1,4 +1,4 @@
-let array = [1, 2, 3, 1, '1', '1']
+let array = [0, 1, 2, 3, 1, '1', '1']
 // let a = []
 // function unique(array) {
 //   for (let i = 0; i < array.length; i++) {
@@ -23,4 +23,7 @@ function unique(arr) {
     }
     seen = sortedArr[i]    
   }
+  return res
 }
+
+console.log(unique(array));

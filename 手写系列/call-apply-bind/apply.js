@@ -24,3 +24,12 @@ function a(name, sex, args) {
 
 let b = {} 
 a.myApply(b, [1,2,3])
+
+if (typeof this !== 'function') {
+    throw new TypeError('error')
+}
+const fn = Symbol('fn')
+const args = arguments[1]
+thisArg = thisArg || window
+thisArg[fn] = this
+const result = thisArg[fn](...args)

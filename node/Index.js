@@ -10,4 +10,4 @@ console.log('hello world');
 // 当前运行的脚步的目录位置
 
 // 进程对象
-console.log(process);
+// console.log(process);

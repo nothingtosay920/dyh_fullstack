@@ -11,12 +11,16 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader', // 使用什么加载器
+        use: {
+          loader: 'babel-loader'
+        }, // 使用什么加载器
         exclude: /node_modules/
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        use: {
+          loader: 'vue-loader'
+        }
       }
     ]
   },

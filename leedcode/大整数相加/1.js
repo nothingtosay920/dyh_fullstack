@@ -13,3 +13,6 @@ function add(num1, num2) {
     }
     return res
 }
+
+
+console.log(add('1245678912345678', '55556666655'));

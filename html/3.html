@@ -5,22 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        * {
-            padding: 0;
-            margin: 0;
+        .main {
+            background: #000;
+            display: flex;
+            width: 500px;
+            height: 500px;
         }
-        .mian {
-            outline: orange 1px solid ;
+        .test {
+            flex: 1;
+            background: #fff;
         }
-        img {
-            vertical-align: middle;
+        .test1 {
+            flex: 0.1
         }
     </style>
+
+    
 </head>
 <body>
     <div class="main"> 
-        English
-        <img src="#" alt="">
+        <div class="test"></div>
+        <div class="test1"></div>
     </div>
+    行内  text-align center
+    块级确认宽度  marin 0 auto
+    flex ju center
+    poa margin-left -width/2 
+    块级未知宽度 dispaly inline-block text align center
+    justify-content:cente
+    绝对定位+transform
 </body>
 </html>

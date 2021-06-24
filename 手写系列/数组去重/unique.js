@@ -21,3 +21,23 @@ function unique(arr, isSorted, iteratee) {
   } 
   return res
 }
+
+Array.prototype.unique = function () {
+  const newArray = [];
+  const tmp = new Map();
+  for(let i = 0; i < this.length; i++){
+        if(!tmp.get(this[i])){
+            tmp.set(this[i], 1);
+            newArray.push(this[i]);
+        }
+    }
+    return newArray;
+}
+
+function unique(arr) {
+  let res = arr.concat().sort((a, b) => a - b).filter(function (item, index, arr) {
+    // return arr.indexOf(item) == index
+    return !index || item != arr[index - 1]
+  })
+  return res
+}

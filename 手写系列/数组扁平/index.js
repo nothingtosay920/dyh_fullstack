@@ -1,4 +1,3 @@
-let arr = [1, [2, [3, 4]]]
 // function faltten (arr) {
 //   let result = [] 
 //   for (let i = 0; i < arr.length; i++) {
@@ -12,14 +11,14 @@ let arr = [1, [2, [3, 4]]]
 // }
 
 // reduce
-// function faltten() {
-//   return arr.reduce(function(prev, next) {
-//     return prev.concat(Array.isArray(next)) ? reduce(next) : next
-//   }, [])
-// }
+function faltten(arr) {
+  return arr.reduce(function(prev, next) {
+    return prev.concat(Array.isArray(next) ? faltten(next) : next) 
+  }, [])
+}
 
 // ... 扩展运算符
-function faltten() {
+function faltten(arr) {
   while(arr.some(item => Array.isArray(item))) {
     arr= [].concat(...arr)
   }

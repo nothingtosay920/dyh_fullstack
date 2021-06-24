@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script></script>
-  <style>
-    div > a > span {
-      color: red;
+<script>
+  function c() {
+    console.log(this);
+  }
+  const a ={
+    b: {
+      e: function() {
+      console.log(this);
+      return this
     }
-  </style>
-</head>
-<body>
-  <div>
-    <a href="#">
-      <span>hello</span>
-    </a>
-  </div>
-
-</body>
-</html>
+    }
+  }
+  console.log(a.b.e() === a.b);
+</script>

@@ -1,8 +1,32 @@
+
+
+
 <script>
-   let a = 2
-   let b
-   let c
-   let d = 1
-   b = c = d= a
-   console.log(a, b, c, d);
+console.log('start')
+
+setTimeout( function () {
+  console.log('setTimeout')
+  Promise.resolve().then(function() {
+  console.log('promise1');
+}).then(function() {
+  console.log('promise2');
+  Promise.resolve().then(function() {
+  console.log('promise3');
+}).then(function() {
+  console.log('promise4');
+});
+});
+}, 0 )
+
+setTimeout(() => {
+   console.log('set2');
+})
+
+Promise.resolve().then(function() {
+  console.log('promise1');
+}).then(function() {
+  console.log('promise2');
+});
+
+console.log('end')
 </script>

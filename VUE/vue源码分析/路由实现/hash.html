@@ -2,24 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
 <body>
   <ul>
-    <li><a href="/home"></a></li>
-    <li><a href="/about"></a></li>
+    <li>123123<a href="#/home">home</a></li>
+    <li><a href="#/about">about</a></li>
   </ul>
 
   <!-- 渲染对应的ui -->
-  <div id="routeView"></div>
+  <!-- <div id="routeView"></div> -->
 
   <script>
     let routerView = document.getElementById('routeView')
     window.addEventListener('hashchange', () => {
       // location 代表url路径
       let hash = location.hash
-      routerView.innerHTML = hashs
+      console.log(location.pathname);
+      // routerView.innerHTML = hash
     })
     window.addEventListener('DOMContentLoaded', () => {
       if (!location.hash) {

@@ -17,7 +17,6 @@ function deepClone(source){
   for(let keys in source){ // 遍历目标
     if(source.hasOwnProperty(keys)){
       if(source[keys] && typeof source[keys] === 'object'){ // 如果值是对象，就递归一下
-        targetObj[keys] = source[keys].constructor === Array ? [] : {};
         targetObj[keys] = deepClone(source[keys]);
       }else{ // 如果不是，就直接赋值
         targetObj[keys] = source[keys];
@@ -43,3 +42,14 @@ console.log(deepClone(a));
 // JavaScript 中数组和对象自带的拷贝方法都是“首层浅拷贝”；
 // JSON.stringify 实现的是深拷贝，但是对目标对象有要求；
 // 若想真正意义上的深拷贝，请递归。
+
+function debounce(fn, delay) {
+  let timer = null
+  return function(...args) {
+    const context = this
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      fn.call(context, arg)
+    }, delay)
+  }
+}
